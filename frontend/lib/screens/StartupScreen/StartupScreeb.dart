@@ -149,7 +149,7 @@ class _StartupScreenState extends State<StartupScreen>
             child:Center(
               child:Text(
                 text.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

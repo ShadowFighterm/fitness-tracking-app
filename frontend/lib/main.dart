@@ -12,7 +12,7 @@ class FitnessApp extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    return MaterialApp
+    return const MaterialApp
     (color: Colors.black,
     debugShowCheckedModeBanner: false,
     home: StartupScreen(),
