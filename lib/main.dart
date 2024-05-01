@@ -1,3 +1,5 @@
+import 'package:db_final_project_fitness_app/screens/AgeScreen/ageScreen.dart';
+import 'package:db_final_project_fitness_app/screens/GenderScreen/GenderScreen.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class FitnessApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       debugShowCheckedModeBanner: false,
-      home: StartupScreen(),
+      home: AgeScreen(),
     );
   }
 }
