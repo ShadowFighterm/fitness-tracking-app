@@ -56,8 +56,8 @@ class _AgeScreenState extends State<AgeScreen> {
             SizedBox(
               height: size.height * 0.46,
               child: ListWheelScrollView(
-                physics: FixedExtentScrollPhysics(),
-                controller: FixedExtentScrollController(initialItem: 50),
+                physics: const FixedExtentScrollPhysics(),
+                controller: FixedExtentScrollController(initialItem: 30),
                 itemExtent: 50,
                 useMagnifier: true,
                 magnification: 1.3,
