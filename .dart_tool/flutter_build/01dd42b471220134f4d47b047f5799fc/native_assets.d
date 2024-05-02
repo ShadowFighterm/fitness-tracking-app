@@ -1,0 +1,1 @@
+ D:\\python\ course\\smester\ 4\\data\ base\\Project\\fitness_app_GFG_frontend-main\\final_project\\fitness-tracking-app\\.dart_tool\\flutter_build\\01dd42b471220134f4d47b047f5799fc\\native_assets.yaml: 
