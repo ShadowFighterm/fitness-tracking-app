@@ -74,7 +74,9 @@ class _StartupScreenState extends State<StartupScreen> {
                       child: Row(
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/gender');
+                            },
                             child: const Text(
                               'Get Started',
                               style: TextStyle(

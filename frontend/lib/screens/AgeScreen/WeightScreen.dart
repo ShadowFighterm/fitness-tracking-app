@@ -1,18 +1,25 @@
 import 'package:db_final_project_fitness_app/constants.dart';
 import 'package:flutter/material.dart';
 
-class GenderScreen extends StatefulWidget {
-  const GenderScreen({super.key});
+class WeightScreen extends StatefulWidget {
+  const WeightScreen({super.key});
 
   @override
-  State<GenderScreen> createState() => _GenderScreenState();
+  State<WeightScreen> createState() => _WeightScreenState();
 }
 
-class _GenderScreenState extends State<GenderScreen> {
-  bool ismale = true;
-  bool isfemale = false;
+class _WeightScreenState extends State<WeightScreen> {
+  double weight = 50;
   @override
   Widget build(BuildContext context) {
+    List<String> weights = [];
+    for (int i = 1; i < 250; i++) {
+      weights.add("≡");
+      weights.add("◢◤");
+      weights.add("𝄚");
+      weights.add("◢◤");
+    }
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -31,7 +38,7 @@ class _GenderScreenState extends State<GenderScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "TELL US ABOUT YOUR \n GENDER_!",
+              "SELECT YOUR WEIGHT IN KILOGRAMS ?",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -42,91 +49,55 @@ class _GenderScreenState extends State<GenderScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "This will help us to know much \n more about you.",
+              "You can change your weight information \n after weight lose :)",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.05,
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  ismale = true;
-                  isfemale = false;
-                });
-                print("pressed male");
-              },
-              child: Container(
-                padding: EdgeInsets.all(size.width * 0.06),
-                decoration: BoxDecoration(
-                  color: ismale ? mainColor : Colors.grey,
-                  shape: BoxShape.circle,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Icon(Icons.male,
-                          size: size.width * 0.2,
-                          color: ismale ? Colors.black : Colors.white),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Text(
-                        "Male",
-                        style: TextStyle(
-                            color: ismale ? Colors.black : Colors.white,
-                            fontSize: size.height * 0.02,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            Text('$weight kg',
+                style: TextStyle(
+                  color: mainColor,
+                  fontSize: size.height * 0.04,
+                  fontWeight: FontWeight.bold,
+                )),
             SizedBox(
               height: size.height * 0.05,
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  ismale = false;
-                  isfemale = true;
-                });
-                print("pressed female");
-              },
-              child: Container(
-                padding: EdgeInsets.all(size.width * 0.06),
-                decoration: BoxDecoration(
-                  color: isfemale ? mainColor : Colors.grey,
-                  shape: BoxShape.circle,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Icon(Icons.female,
-                          size: size.width * 0.2,
-                          color: isfemale ? Colors.black : Colors.white),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Text(
-                        "Female",
-                        style: TextStyle(
-                            color: isfemale ? Colors.black : Colors.white,
-                            fontSize: size.height * 0.02,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+            SizedBox(
+              height: size.height * 0.35,
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: ListWheelScrollView(
+                  physics: const FixedExtentScrollPhysics(),
+                  controller: FixedExtentScrollController(initialItem: 50),
+                  itemExtent: size.height * 0.090,
+                  useMagnifier: true,
+                  magnification: 1.3,
+                  overAndUnderCenterOpacity: 0.3,
+                  onSelectedItemChanged: (value) {
+                    setState(() {
+                      weight = ((value + 1) / 4);
+                    });
+                    print(value);
+                  },
+                  diameterRatio: 55,
+                  children: weights.map((level) {
+                    return Text(
+                      level,
+                      style: TextStyle(
+                          fontSize: size.height * 0.080,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }).toList(),
                 ),
               ),
             ),
             SizedBox(
-              height: size.height * 0.08,
+              height: size.height * 0.03,
             ),
             Row(
               children: [
@@ -153,9 +124,7 @@ class _GenderScreenState extends State<GenderScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/age');
-                  },
+                  onTap: () {},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

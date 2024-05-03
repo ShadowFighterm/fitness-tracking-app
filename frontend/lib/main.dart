@@ -1,3 +1,5 @@
+import 'package:db_final_project_fitness_app/screens/AgeScreen/ActivityScreen.dart';
+import 'package:db_final_project_fitness_app/screens/AgeScreen/GoalScreen.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/HeightScreen.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/WeightScreen.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/ageScreen.dart';
@@ -16,7 +18,7 @@ class FitnessApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       debugShowCheckedModeBanner: false,
-      home: WeightScreen(),
+      home: ActivityScreen(),
     );
   }
 }
