@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/SignupLoginScreens/ForgotPassword.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/ActivityScreen.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/GoalScreen.dart';
 import 'package:db_final_project_fitness_app/screens/AgeScreen/HeightScreen.dart';
@@ -18,7 +19,7 @@ class FitnessApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       debugShowCheckedModeBanner: false,
-      home: ActivityScreen(),
+      home: ForgotPasswordScreen(),
     );
   }
 }
