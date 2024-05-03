@@ -1,0 +1,14 @@
+const app = require('./app');
+const port = process.env.port || 3000;
+const db = require('./db/db')
+
+app.get('/', (req,res) => 
+{
+    res.send("Testing backend");
+});
+
+app.listen(port,() =>
+{
+    console.log(`Server is runnning at port http://localhost:${port}`);
+
+});
