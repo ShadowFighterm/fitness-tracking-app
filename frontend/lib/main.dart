@@ -16,7 +16,7 @@ class FitnessApp extends StatelessWidget {
   const FitnessApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       color: Colors.black,
       debugShowCheckedModeBanner: false,
       home: ForgotPasswordScreen(),
