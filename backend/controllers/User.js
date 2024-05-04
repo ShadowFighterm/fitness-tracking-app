@@ -46,8 +46,21 @@ exports.register = async(req, res) =>
                     {
                         return res.status(400).json({message: 'Invalid password'});
                     }
-                const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-                res.json({status: 'Success', token: token});
+ 
+                let tokenData={
+                    email:user.email,
+                    userId:user._id,
+                }
+                const jwtKey= "A123";
+                const token= await UserServices.GenerateTokens(tokenData,jwtKey,"24h");
+                res.status(200).json(
+                    {
+                        status:"success",
+                        message:"User Logged in successfully",
+                        token:token,
+                    }
+                );
+
             }
             catch(err)
             {

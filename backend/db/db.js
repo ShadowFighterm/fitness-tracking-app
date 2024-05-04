@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connection = mongoose.createConnection(`mongodb://localhost:27017/fitness_app`).on
+const connection = mongoose.createConnection(`mongodb://127.0.0.1:27017/fitness_app`).on
 (
     'open',() => 
     {
