@@ -48,29 +48,6 @@ class  _SignUpState extends State<SignUp> {
     _pageController = PageController(initialPage: 0);
   }
 
-  void loginUser() async {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      var token = await AuthProvider.loginUser(
-          _emailController.text, _passwordController.text);
-      if (token != null) {
-        print('Login successful');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OnBoardingScreen(),
-          ),
-        );
-      } else {
-        print('Login failed');
-      }
-    } else {
-      setState(() {
-        _isNotValidate = true;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
