@@ -1,7 +1,10 @@
 import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../constants.dart';
 
+import '../Provider/auth_provider.dart';
+import '../screens/onBoardingScreen/onBoardingScreen.dart';
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -15,6 +18,35 @@ class  _SignUpState extends State<SignUp> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   bool _isNotValidate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  void loginUser() async {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      var token = await AuthProvider.loginUser(
+          _emailController.text, _passwordController.text);
+      if (token != null) {
+        print('Login successful');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OnBoardingScreen(),
+          ),
+        );
+      } else {
+        print('Login failed');
+      }
+    } else {
+      setState(() {
+        _isNotValidate = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +86,7 @@ class  _SignUpState extends State<SignUp> {
                   },
                   style: TextButton.styleFrom(
                     foregroundColor:
-                        isLoginSelected ? PrimaryColor : Colors.white,
+                        isLoginSelected ? mainColor : Colors.white,
                     textStyle: TextStyle(
                         shadows: isLoginSelected
                             ? const [
@@ -85,7 +117,7 @@ class  _SignUpState extends State<SignUp> {
                   },
                   style: TextButton.styleFrom(
                     foregroundColor:
-                        isLoginSelected ? Colors.white : PrimaryColor,
+                        isLoginSelected ? Colors.white : mainColor,
                     textStyle: TextStyle(
                       shadows: isLoginSelected
                           ? null
@@ -210,7 +242,7 @@ class  _SignUpState extends State<SignUp> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                  color: PrimaryColor,
+                                  color: mainColor,
                                 ),
                               ),
                             ),
@@ -262,7 +294,7 @@ class  _SignUpState extends State<SignUp> {
                               height: size.height * 0.06,
                               width: size.width * 0.3,
                               decoration: BoxDecoration(
-                                color: PrimaryColor,
+                                color: mainColor,
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
@@ -413,7 +445,7 @@ class  _SignUpState extends State<SignUp> {
                               height: size.height * 0.06,
                               width: size.width * 0.3,
                               decoration: BoxDecoration(
-                                color: PrimaryColor,
+                                color: mainColor,
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
