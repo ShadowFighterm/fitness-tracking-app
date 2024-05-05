@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 
 import '../Provider/auth_provider.dart';
-import '../screens/onBoardingScreen/onBoardingScreen.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -162,7 +162,7 @@ class  _SignUpState extends State<SignUp> {
                   ),
                 ),
                 const Expanded(child: SizedBox.shrink()),
-                //CircleAvatar
+                //CircleAvatar  
                 isLoginSelected
                     ? const CircleAvatar(
                         radius: 25,
