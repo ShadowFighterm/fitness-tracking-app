@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/constants.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,29 @@ class  _SignUpState extends State<SignUp> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   bool _isNotValidate = false;
-
+    void loginUser() async
+    {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      var token = await AuthProvider.loginUser(
+          _emailController.text, _passwordController.text);
+      if (token != null) {
+        print('Login successful');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StartupScreen(),
+          ),
+        );
+      } else {
+        print('Login failed');
+      }
+    } else {
+      setState(() {
+        _isNotValidate = true;
+      });
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -298,7 +321,8 @@ class  _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
-                                onPressed: () {
+                                onPressed: ()
+                                {
                                   // _login();
                                   loginUser();
                                 },
