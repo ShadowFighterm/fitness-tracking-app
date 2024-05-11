@@ -1,10 +1,8 @@
-import 'package:db_final_project_fitness_app/constants.dart';
-import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
-
-import '../Provider/auth_provider.dart';
+import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -144,7 +142,7 @@ class  _SignUpState extends State<SignUp> {
                     ? const CircleAvatar(
                         radius: 25,
                         backgroundImage:
-                            AssetImage('assets/extraimages/profile.jpg'),
+                            AssetImage('assets/Images/profile.jpg'),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -156,7 +154,7 @@ class  _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isLoginSelected
-                    ? "Welcome back, \nSarah".toUpperCase()
+                    ? "Welcome back, \nUser".toUpperCase()
                     : "Hello rookies".toUpperCase(),
                 style: TextStyle(
                   fontSize: size.width * 0.095,
@@ -235,7 +233,7 @@ class  _SignUpState extends State<SignUp> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/forgotpassword');
+                                Navigator.pushNamed(context, '/ForgotPassword');
                               },
                               child: const Text(
                                 "Forgot Password ?",
@@ -248,7 +246,7 @@ class  _SignUpState extends State<SignUp> {
                             ),
                           ],
                         ),
-                        SizedBox(height: size.height * 0.075),
+                        SizedBox(height: size.height * 0.025),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -264,7 +262,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Google sign-in logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/google.png',
+                                  'assets/Images/google.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -283,7 +281,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Apple sign-in logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/apple.png',
+                                  'assets/Images/apple.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -416,7 +414,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Google sign-up logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/google.png',
+                                  'assets/Images/google.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -435,7 +433,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Apple sign-up logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/apple.png',
+                                  'assets/Images/apple.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:db_final_project_fitness_app/constants.dart';
-import 'package:db_final_project_fitness_app/Provider/user_provider.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/Provider/userprov.dart';
 
 class AgeScreen extends StatefulWidget {
   const AgeScreen({Key? key}) : super(key: key);
@@ -52,7 +52,7 @@ class _AgeScreenState extends State<AgeScreen> {
                     height: size.height * 0.02,
                   ),
                   Text(
-                    "This will help us to know much \n more about you.",
+                    "This will help us to know much \n more about you",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: size.height * 0.016,
@@ -94,7 +94,7 @@ class _AgeScreenState extends State<AgeScreen> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {Navigator.pushNamed(context, '/gender');},
                         child: Container(
                           margin: EdgeInsets.only(
                             top: size.height * 0.02,

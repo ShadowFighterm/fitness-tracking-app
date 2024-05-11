@@ -1,4 +1,4 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
 class HeightScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR HEIGHT IN CENTIMETERS ?",
+              "SELECT YOUR HEIGHT IN CENTIMETERS",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -45,7 +45,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "This will help us to know much \n more about you.",
+              "This will help us to know much \n more about you",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -83,7 +83,7 @@ class _HeightScreenState extends State<HeightScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/weight');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -105,7 +105,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/activity');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

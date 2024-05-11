@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:db_final_project_fitness_app/constants/constants.dart'; 
-import 'package:db_final_project_fitness_app/screens/HomeScreen/homeScreen.dart';
-import 'package:db_final_project_fitness_app/screens/HomeScreen/Notification.dart';
-import 'package:db_final_project_fitness_app/screens/profilePage/profilePage.dart';
-import 'package:db_final_project_fitness_app/screens/HomeScreen/workoutProgress.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart'; 
+import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/WorkoutProgress.dart';
 
 class HomepageNavbar extends StatefulWidget {
   const HomepageNavbar({super.key});

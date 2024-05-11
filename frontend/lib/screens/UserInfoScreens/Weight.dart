@@ -1,4 +1,4 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
 class WeightScreen extends StatefulWidget {
@@ -9,15 +9,12 @@ class WeightScreen extends StatefulWidget {
 }
 
 class _WeightScreenState extends State<WeightScreen> {
-  double weight = 50;
+  double weight = 12.75;
   @override
   Widget build(BuildContext context) {
     List<String> weights = [];
     for (int i = 1; i < 250; i++) {
-      weights.add("≡");
-      weights.add("◢◤");
-      weights.add("𝄚");
-      weights.add("◢◤");
+      weights.add("v");
     }
 
     var size = MediaQuery.of(context).size;
@@ -38,7 +35,7 @@ class _WeightScreenState extends State<WeightScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR WEIGHT IN KILOGRAMS ?",
+              "SELECT YOUR WEIGHT IN KILOGRAMS",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -49,7 +46,7 @@ class _WeightScreenState extends State<WeightScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "You can change your weight information \n after weight lose :)",
+              "You can change your weight information \n after weight lose",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -102,7 +99,7 @@ class _WeightScreenState extends State<WeightScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/age');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -124,7 +121,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/height');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

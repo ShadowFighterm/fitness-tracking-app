@@ -1,6 +1,6 @@
-import 'package:db_final_project_fitness_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/constants/padding.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      "SUNDAYY, 5 MAYEE",
+                      "SUNDAY, 5 MAY",
                       style: TextStyle(
                         fontSize: size.width * 0.04,
                         color: mainColor,
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/workoutCategories');
+                        Navigator.pushNamed(context, '/WorkoutCategories');
                       },
                       child: Text(
                         "See All",
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                               : Colors.black,
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Container(
                             padding: EdgeInsets.all(8),
                             child: Text(

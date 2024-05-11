@@ -1,22 +1,22 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
-class ActivityScreen extends StatefulWidget {
-  const ActivityScreen({super.key});
+class GoalScreen extends StatefulWidget {
+  const GoalScreen({super.key});
 
   @override
-  State<ActivityScreen> createState() => _ActivityScreenState();
+  State<GoalScreen> createState() => _GoalScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _GoalScreenState extends State<GoalScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> levels = [
-      'Rookie',
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-      'Pro',
+    List<String> goals = [
+      'Lose Weight',
+      'Gain Weight',
+      'Stay Fit',
+      'Build Muscle',
+      'Stay Healthy',
     ];
 
     var size = MediaQuery.of(context).size;
@@ -37,7 +37,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR GOAL.",
+              "SELECT YOUR GOAL",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -48,7 +48,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "You can change your Goal information \n after weight lose :)",
+              "You can change your Goal information \n after weight lose",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     print(value);
                   },
                   diameterRatio: 55,
-                  children: levels.map((level) {
+                  children: goals.map((level) {
                     return Text(
                       level,
                       style: TextStyle(
@@ -93,7 +93,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/activity');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -115,7 +115,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/NavigationBar');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

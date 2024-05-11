@@ -1,4 +1,4 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -94,7 +94,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 width: size.width * 0.8,
                 child: Center(
                   child: Text(
-                    "Try any other way",
+                    "Try another way",
                     style: TextStyle(
                         color: mainColor,
                         fontSize: size.width * 0.05,
@@ -114,7 +114,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 margin: EdgeInsets.only(
-                  top: size.height * 0.02,
+                  top: size.height * 0.001,
                 ),
                 padding: EdgeInsets.symmetric(
                   horizontal: size.width * 0.05,
@@ -138,10 +138,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/login');},
                   child: Container(
                     margin: EdgeInsets.only(
-                      top: size.height * 0.02,
+                      top: size.height * 0.001,
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.05,

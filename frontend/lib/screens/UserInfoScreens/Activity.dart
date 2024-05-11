@@ -1,22 +1,22 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
-class GoalScreen extends StatefulWidget {
-  const GoalScreen({super.key});
+class ActivityScreen extends StatefulWidget {
+  const ActivityScreen({super.key});
 
   @override
-  State<GoalScreen> createState() => _GoalScreenState();
+  State<ActivityScreen> createState() => _ActivityScreenState();
 }
 
-class _GoalScreenState extends State<GoalScreen> {
+class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> goals = [
-      'Lose Weight',
-      'Gain Weight',
-      'Stay Fit',
-      'Build Muscle',
-      'Stay Healthy',
+    List<String> levels = [
+      'Rookie',
+      'Beginner',
+      'Intermediate',
+      'Advanced',
+      'Pro',
     ];
 
     var size = MediaQuery.of(context).size;
@@ -37,7 +37,7 @@ class _GoalScreenState extends State<GoalScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR GOAL.",
+              "SELECT YOUR ACTIVITY LEVEL",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -48,7 +48,7 @@ class _GoalScreenState extends State<GoalScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "You can change your Goal information \n after weight lose :)",
+              "Tell us what is your current activity level",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     print(value);
                   },
                   diameterRatio: 55,
-                  children: goals.map((level) {
+                  children: levels.map((level) {
                     return Text(
                       level,
                       style: TextStyle(
@@ -93,7 +93,7 @@ class _GoalScreenState extends State<GoalScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/height');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -115,7 +115,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/goal');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

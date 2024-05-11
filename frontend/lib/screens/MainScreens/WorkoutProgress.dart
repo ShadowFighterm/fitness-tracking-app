@@ -1,22 +1,24 @@
 import 'package:calendar_slider/calendar_slider.dart';
-import 'package:db_final_project_fitness_app/constants/constants.dart';
-
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class workoutProgress extends StatefulWidget {
+class workoutProgress extends StatefulWidget
+{
   const workoutProgress({super.key});
 
   @override
   State<workoutProgress> createState() => _workoutProgressState();
 }
 
-class _workoutProgressState extends State<workoutProgress> {
+class _workoutProgressState extends State<workoutProgress>
+{
   final _firstController = CalendarSliderController();
 
   late DateTime _selectedDateAppBBar;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -40,7 +42,8 @@ class _workoutProgressState extends State<workoutProgress> {
         firstDate: DateTime.now().subtract(const Duration(days: 100)),
         lastDate: DateTime.now().add(const Duration(days: 100)),
         onDateSelected: (date) {
-          setState(() {
+          setState(()
+          {
             _selectedDateAppBBar = date;
           });
         },
