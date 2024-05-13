@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
@@ -66,19 +67,20 @@ class _AgeScreenState extends State<AgeScreen> {
                     height: size.height * 0.46,
                     child: ListWheelScrollView(
                       physics: const FixedExtentScrollPhysics(),
-                      controller: FixedExtentScrollController(initialItem: 30),
+                      controller: FixedExtentScrollController(initialItem: 35),
                       itemExtent: 50,
                       useMagnifier: true,
                       magnification: 1.3,
                       overAndUnderCenterOpacity: 0.2,
                       onSelectedItemChanged: (value) {
                         print(value);
+                        userProv.setAge(value);
                       },
                       diameterRatio: 1.3,
                       children: List.generate(
                         120,
                         (index) => Text(
-                          (index + 5).toString(),
+                          (index).toString(),
                           style: TextStyle(
                             color: mainColor,
                             fontSize: size.height * 0.05,

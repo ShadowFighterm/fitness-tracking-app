@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
               IconRow(
                 text: 'Account',
                 onTap: () {
-                  // Navigator.pushNamed(context, '/account');
+                  Navigator.pushNamed(context, '/account');
                 },
               ),
               const SizedBox(height: 8),

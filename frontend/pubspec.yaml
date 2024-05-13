@@ -38,6 +38,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   calendar_slider: ^0.0.4
   provider: ^6.1.1
+  image_picker: ^1.1.1
   http:
 
 dev_dependencies:

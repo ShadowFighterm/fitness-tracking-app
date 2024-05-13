@@ -5,6 +5,6 @@ const UserRoutes = require('./routes/User');
 const BodyParser = require('body-parser');
 
 app.use(BodyParser.json());
-app.use('/user', UserRoutes);
+app.use('/', UserRoutes);
 
 module.exports = app;

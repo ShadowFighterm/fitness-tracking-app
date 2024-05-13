@@ -2,6 +2,7 @@ import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/NavigationBar.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/workoutCategories.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Account.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/PrivacyPolicy.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Settings.dart';
@@ -43,6 +44,7 @@ class FitnessApp extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/settings': (context) => SettingsPage(),
+        '/account': (context) => AccountInfoPage(),
         
       },
       debugShowCheckedModeBanner: false,

@@ -1,5 +1,7 @@
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
@@ -17,6 +19,28 @@ class  _SignUpState extends State<SignUp> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   bool _isNotValidate = false;
+
+    void registerUser() async
+    {
+      if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+      {
+        var res = await AuthProvider.registerUser(
+          _emailController.text, _passwordController.text, 
+          userProv.age, userProv.gender, userProv.height, 
+          userProv.weight, userProv.goal, userProv.activityLevel);
+        if(res == "success")
+        {
+          Navigator.pushNamed(context, '/login');
+        }
+      }
+      else
+      {
+        setState(() {
+          _isNotValidate = true;
+        });
+      }
+        
+    }
     void loginUser() async
     {
     if (_emailController.text.isNotEmpty &&
@@ -25,12 +49,7 @@ class  _SignUpState extends State<SignUp> {
           _emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StartupScreen(),
-          ),
-        );
+        Navigator.pushNamed(context,'/NavigationBar');
       } else {
         print('Login failed');
       }
@@ -449,7 +468,7 @@ class  _SignUpState extends State<SignUp> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  // registerUser();
+                                  registerUser();
                                   //print the user details
                                 },
                                 child: const Row(

@@ -1,4 +1,5 @@
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class ActivityScreen extends StatefulWidget {
@@ -73,6 +74,8 @@ class _ActivityScreenState extends State<ActivityScreen> {
                   onSelectedItemChanged: (value) {
                     setState(() {});
                     print(value);
+                    print(levels[value]);
+                    userProv.setActivityLevel(levels[value]);
                   },
                   diameterRatio: 55,
                   children: levels.map((level) {

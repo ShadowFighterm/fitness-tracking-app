@@ -15,7 +15,7 @@ exports.register = async(req, res) =>
                 height,
                 weight,
                 goal,
-                activity,
+                activity, 
             } = req.body;
             const SameUser = await UserServices.GetUserByMail(email);
             if(SameUser)
@@ -23,7 +23,7 @@ exports.register = async(req, res) =>
                     return res.status(400).json({message: 'User already exists'});
                 }
             const user = await UserServices.RegisterUser(email,password,age,gender,height,weight,goal,activity);
-            res.json({status: "Success", message: "User has been registered succesfully"});
+            res.status(200).json({status: "Success", message: "User has been registered succesfully"});
         }
         catch(err)
         {
@@ -41,7 +41,7 @@ exports.register = async(req, res) =>
                     {
                         return res.status(400).json({message: 'User does not exists'});
                     }
-                const PasswordMatch = await UserServices.ComparePassword(password);
+                const PasswordMatch = await UserServices.ComparePassword(email, password);
                 if(!PasswordMatch)
                     {
                         return res.status(400).json({message: 'Invalid password'});
@@ -56,11 +56,11 @@ exports.register = async(req, res) =>
                 res.status(200).json(
                     {
                         status:"success",
-                        message:"User Logged in successfully",
+                        message:"User logged in successfully",
                         token:token,
                     }
                 );
-
+                console.log('Loged in');
             }
             catch(err)
             {
@@ -68,4 +68,4 @@ exports.register = async(req, res) =>
                 res.status(500).json({message: "Internal server error"});
             }
 
-        }f
+        }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +11,8 @@ class AuthProvider extends ChangeNotifier {
   final UserProvider userProvider;
   AuthProvider(this.userProvider);
   static Future<String?> loginUser(String email, String password) async {
-    try {
+    try 
+    {
       var reqBody = {"email": email, "password": password};
 
       var response = await http.post(
@@ -21,7 +21,8 @@ class AuthProvider extends ChangeNotifier {
         body: jsonEncode(reqBody),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200)
+      {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['message'] == 'User logged in successfully') {
           print('Login successful');
@@ -30,13 +31,60 @@ class AuthProvider extends ChangeNotifier {
           print('Authentication failed: ${jsonResponse['message']}');
           return null;
         }
-      } else {
+      } 
+      else 
+      {
         print('Server error: ${response.statusCode}');
         print('Server error: ${response.body}');
         return null;
       }
-    } catch (e) {
+    } 
+    catch (e) 
+    {
       print('Error logging in: $e');
+      return null;
+    }
+  }
+  static Future<String?> registerUser(String email, String password,
+  int age, String gender, int height, double weight, String goal,
+  String activity) async
+  {
+    try
+    {
+      var reqBody = {"email": email, "password": password,
+      "age": age, "gender": gender, "height": height, "weight": weight,
+      "goal": goal, "activity": activity};
+
+      var response = await http.post(
+        Uri.parse(register),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody),
+      );
+      
+      if(response.statusCode == 400 || response.statusCode == 200)
+      {
+        var jsonResponse = jsonDecode(response.body);
+        if(jsonResponse['status'] == 'Success')
+        {
+          print('Registered successfully');
+          return 'success';
+        }
+        else
+        {
+          print('User already exists!');
+          return "exists";
+        }
+      }
+      else
+      {
+        print(response.statusCode);
+        print('Server error');
+        return null;
+      }
+    }
+    catch(e)
+    {
+      print("Error registered in: $e");
       return null;
     }
   }

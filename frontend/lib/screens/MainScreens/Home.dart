@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushNamed(context, '/WorkoutCategories');
                       },
                       child: Text(
-                        "See All",
+                        "View All",
                         style: TextStyle(
                           fontSize: size.width * 0.04,
                           color: mainColor,

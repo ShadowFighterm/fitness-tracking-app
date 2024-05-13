@@ -1,5 +1,6 @@
 const UserMod = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 class UserServices
 {
@@ -9,7 +10,7 @@ class UserServices
         {
             console.log("email",email,"password",password,"age",age,"gender",gender,"height",height,"weight",weight,
             "goal",goal,"activity",activity);
-            const CreateUser = new UserMod(email,password,age,gender,height,weight,goal,activity);
+            const CreateUser = new UserMod({email,password,age,gender,height,weight,goal,activity});
             return await CreateUser.save();
         }
         catch(err)
@@ -24,18 +25,33 @@ class UserServices
     {
         try
         {
-            return await UserMod.FindOne({email: email});
+            return await UserMod.findOne({email});
         }
         catch(err)
         {
             console.log(err);
         }
     }
+    static async ComparePassword(email, password)
+    {
+        try
+        {
+            var user = await this.GetUserByMail(email);
+            const match = await bcrypt.compare(password, user.password);
+            console.log(match);
+            return match
+        }
+        catch(err)
+        {
+            console.log("Error in comparing password", err);
+            return false;
+        } 
+    }
     static async CheckUser(email)
     {
         try
         {
-            return await UserMod.FindOne({email: email});
+            return await UserMod.findOne({email});
         }
         catch(err)
         {

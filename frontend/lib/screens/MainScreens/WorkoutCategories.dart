@@ -55,7 +55,7 @@ class _WorkoutCategoriesState extends State<WorkoutCategories> {
                               : Colors.black,
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Container(
                             padding: EdgeInsets.all(8),
                             child: Text(

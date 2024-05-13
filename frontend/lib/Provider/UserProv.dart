@@ -5,14 +5,14 @@ class UserProvider extends ChangeNotifier {
   String _gender = '';
   int _age = 0;
   int _height = 0; 
-  int _weight = 0; 
+  double _weight = 0; 
   String _activityLevel = '';
   String _goal = '';
 
   String get gender => _gender;
   int get age => _age;
   int get height => _height;
-  int get weight => _weight;
+  double get weight => _weight;
   String get activityLevel => _activityLevel;
   String get goal => _goal;
 
@@ -31,7 +31,7 @@ class UserProvider extends ChangeNotifier {
     
   }
 
-  void setWeight(int weight) {
+  void setWeight(double weight) {
     _weight = weight;
     
   }

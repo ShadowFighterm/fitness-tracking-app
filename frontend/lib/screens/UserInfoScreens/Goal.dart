@@ -1,4 +1,5 @@
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class GoalScreen extends StatefulWidget {
@@ -73,6 +74,8 @@ class _GoalScreenState extends State<GoalScreen> {
                   onSelectedItemChanged: (value) {
                     setState(() {});
                     print(value);
+                    print(goals[value]);
+                    userProv.setGoal(goals[value]);
                   },
                   diameterRatio: 55,
                   children: goals.map((level) {
@@ -115,7 +118,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/NavigationBar');},
+                  onTap: () {Navigator.pushNamed(context, '/login');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

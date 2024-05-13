@@ -1,4 +1,7 @@
+
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class GenderScreen extends StatefulWidget {
@@ -14,6 +17,7 @@ class _GenderScreenState extends State<GenderScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    userProv.setGender("male");
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -57,6 +61,7 @@ class _GenderScreenState extends State<GenderScreen> {
                   isfemale = false;
                 });
                 print("pressed male");
+                userProv.setGender("male");
               },
               child: Container(
                 padding: EdgeInsets.all(size.width * 0.06),
@@ -96,6 +101,7 @@ class _GenderScreenState extends State<GenderScreen> {
                   isfemale = true;
                 });
                 print("pressed female");
+                userProv.setGender("female");
               },
               child: Container(
                 padding: EdgeInsets.all(size.width * 0.06),

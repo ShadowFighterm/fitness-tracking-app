@@ -1,4 +1,5 @@
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class WeightScreen extends StatefulWidget {
@@ -78,7 +79,9 @@ class _WeightScreenState extends State<WeightScreen> {
                     setState(() {
                       weight = ((value + 1) / 4);
                     });
-                    print(value);
+                    double w = ((value + 1) / 4);
+                    print(w);
+                    userProv.setWeight(w);
                   },
                   diameterRatio: 55,
                   children: weights.map((level) {

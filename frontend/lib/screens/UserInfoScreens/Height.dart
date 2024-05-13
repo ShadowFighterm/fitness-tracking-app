@@ -1,4 +1,5 @@
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class HeightScreen extends StatefulWidget {
@@ -57,19 +58,20 @@ class _HeightScreenState extends State<HeightScreen> {
               height: size.height * 0.46,
               child: ListWheelScrollView(
                 physics: const FixedExtentScrollPhysics(),
-                controller: FixedExtentScrollController(initialItem: 50),
+                controller: FixedExtentScrollController(initialItem: 55),
                 itemExtent: 50,
                 useMagnifier: true,
                 magnification: 1.3,
                 overAndUnderCenterOpacity: 0.2,
                 onSelectedItemChanged: (value) {
                   print(value);
+                  userProv.setHeight(value);
                 },
                 diameterRatio: 1.3,
                 children: List.generate(
                     300,
                     (index) => Text(
-                          (index + 5).toString() + " cm",
+                          (index).toString() + " cm",
                           style: TextStyle(
                               color: mainColor,
                               fontSize: size.height * 0.05,
