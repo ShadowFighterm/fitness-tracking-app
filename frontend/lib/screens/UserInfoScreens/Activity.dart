@@ -19,8 +19,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
       'Advanced',
       'Pro',
     ];
-
+    var init = 3;
     var size = MediaQuery.of(context).size;
+    userProv.setActivityLevel(levels[init]);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -66,7 +67,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                 quarterTurns: 0,
                 child: ListWheelScrollView(
                   physics: const FixedExtentScrollPhysics(),
-                  controller: FixedExtentScrollController(initialItem: 3),
+                  controller: FixedExtentScrollController(initialItem: init),
                   itemExtent: size.height * 0.090,
                   useMagnifier: true,
                   magnification: 1.3,

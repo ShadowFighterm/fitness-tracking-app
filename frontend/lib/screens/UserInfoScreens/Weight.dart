@@ -17,8 +17,9 @@ class _WeightScreenState extends State<WeightScreen> {
     for (int i = 1; i < 250; i++) {
       weights.add("v");
     }
-
+    var init = 50;
     var size = MediaQuery.of(context).size;
+    userProv.setWeight((init + 1)/ 4);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -70,7 +71,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 quarterTurns: 1,
                 child: ListWheelScrollView(
                   physics: const FixedExtentScrollPhysics(),
-                  controller: FixedExtentScrollController(initialItem: 50),
+                  controller: FixedExtentScrollController(initialItem: init),
                   itemExtent: size.height * 0.090,
                   useMagnifier: true,
                   magnification: 1.3,

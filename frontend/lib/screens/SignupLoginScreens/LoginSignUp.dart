@@ -1,4 +1,5 @@
 import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
+import 'package:db_final_project_fitness_app/Provider/userprov.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
 import 'package:db_final_project_fitness_app/static.dart';
@@ -22,9 +23,11 @@ class  _SignUpState extends State<SignUp> {
 
     void registerUser() async
     {
-      if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+      if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
       {
+        userProv.setName(_nameController.text);
         var res = await AuthProvider.registerUser(
+          userProv.name,
           _emailController.text, _passwordController.text, 
           userProv.age, userProv.gender, userProv.height, 
           userProv.weight, userProv.goal, userProv.activityLevel);
@@ -467,9 +470,16 @@ class  _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
-                                onPressed: () {
+                                onPressed: ()
+                                {
                                   registerUser();
-                                  //print the user details
+                                  print(userProv.name);
+                                  print(userProv.gender);
+                                  print(userProv.age);
+                                  print(userProv.height);
+                                  print(userProv.weight);
+                                  print(userProv.activityLevel);
+                                  print(userProv.goal);
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

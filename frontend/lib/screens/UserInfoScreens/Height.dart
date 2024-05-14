@@ -16,8 +16,9 @@ class _HeightScreenState extends State<HeightScreen> {
     for (int i = 1; i < 150; i++) {
       ages.add(i.toString());
     }
-
+    var init = 55;
     var size = MediaQuery.of(context).size;
+    userProv.setHeight(init);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -58,7 +59,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: size.height * 0.46,
               child: ListWheelScrollView(
                 physics: const FixedExtentScrollPhysics(),
-                controller: FixedExtentScrollController(initialItem: 55),
+                controller: FixedExtentScrollController(initialItem: init),
                 itemExtent: 50,
                 useMagnifier: true,
                 magnification: 1.3,

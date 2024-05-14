@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,15 @@ import '../config.dart';
 class AuthProvider extends ChangeNotifier {
   final UserProvider userProvider;
   AuthProvider(this.userProvider);
+  static void LoadUserInfo(var jsonReponse)
+  {
+    userProv.setGender(jsonReponse['gender']);
+    userProv.setAge(jsonReponse['age']);
+    userProv.setHeight(jsonReponse['height']);
+    userProv.setWeight(jsonReponse['weight']);
+    userProv.setActivityLevel(jsonReponse['activity']);
+    userProv.setGoal(jsonReponse['goal']);
+  }
   static Future<String?> loginUser(String email, String password) async {
     try 
     {
@@ -26,6 +36,7 @@ class AuthProvider extends ChangeNotifier {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['message'] == 'User logged in successfully') {
           print('Login successful');
+          AuthProvider.LoadUserInfo(jsonResponse);
           return jsonResponse['token'];
         } else {
           print('Authentication failed: ${jsonResponse['message']}');
@@ -45,13 +56,13 @@ class AuthProvider extends ChangeNotifier {
       return null;
     }
   }
-  static Future<String?> registerUser(String email, String password,
+  static Future<String?> registerUser(String name, String email, String password,
   int age, String gender, int height, double weight, String goal,
   String activity) async
   {
     try
     {
-      var reqBody = {"email": email, "password": password,
+      var reqBody = {"name": name, "email": email, "password": password,
       "age": age, "gender": gender, "height": height, "weight": weight,
       "goal": goal, "activity": activity};
 
@@ -59,7 +70,7 @@ class AuthProvider extends ChangeNotifier {
         Uri.parse(register),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody),
-      );
+      );//.timeout(const Duration(seconds: 10));
       
       if(response.statusCode == 400 || response.statusCode == 200)
       {
@@ -88,4 +99,5 @@ class AuthProvider extends ChangeNotifier {
       return null;
     }
   }
+  
 }

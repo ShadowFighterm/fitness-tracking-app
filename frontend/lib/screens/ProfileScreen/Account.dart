@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class AccountInfoPage extends StatefulWidget {
@@ -9,11 +12,11 @@ class AccountInfoPage extends StatefulWidget {
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
-  String name = "John Doe"; // Sample initial values
-  int weight = 70;
-  int height = 170;
-  int age = 30;
-  String goal = "Lose Weight";
+  String name = userProv.name; // Sample initial values
+  double weight = userProv.weight;
+  int height = userProv.height;
+  int age = userProv.age;
+  String goal = userProv.goal;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -124,7 +127,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   // Save the changes
                   setState(() {
                     name = nameController.text;
-                    weight = int.parse(weightController.text);
+                    weight = double.parse(weightController.text);
                     height = int.parse(heightController.text);
                     age = int.parse(ageController.text);
                     goal = goalController.text;

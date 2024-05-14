@@ -4,13 +4,13 @@ const bcrypt = require('bcrypt');
 
 class UserServices
 {
-    static async RegisterUser(email,password,age,gender,height,weight,goal,activity)
+    static async RegisterUser(name,email,password,age,gender,height,weight,goal,activity)
     {
         try
         {
-            console.log("email",email,"password",password,"age",age,"gender",gender,"height",height,"weight",weight,
+            console.log("name",name,"email",email,"password",password,"age",age,"gender",gender,"height",height,"weight",weight,
             "goal",goal,"activity",activity);
-            const CreateUser = new UserMod({email,password,age,gender,height,weight,goal,activity});
+            const CreateUser = new UserMod({name,email,password,age,gender,height,weight,goal,activity});
             return await CreateUser.save();
         }
         catch(err)

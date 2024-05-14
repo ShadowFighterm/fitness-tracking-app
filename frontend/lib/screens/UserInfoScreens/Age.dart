@@ -18,14 +18,17 @@ class _AgeScreenState extends State<AgeScreen> {
     for (int i = 1; i < 150; i++) {
       ages.add(i.toString());
     }
-
+    var init = 35;
     var size = MediaQuery.of(context).size;
+    userProv.setAge(init);
+    print(userProv.age);
     return Scaffold(
       backgroundColor: Colors.black,
       body: ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
         child: Consumer<UserProvider>(
-          builder: (context, userProvider, _) {
+          builder: (context, userProvider, _)
+          {
             return Container(
               padding: EdgeInsets.only(
                 top: size.height * 0.02,
@@ -67,7 +70,7 @@ class _AgeScreenState extends State<AgeScreen> {
                     height: size.height * 0.46,
                     child: ListWheelScrollView(
                       physics: const FixedExtentScrollPhysics(),
-                      controller: FixedExtentScrollController(initialItem: 35),
+                      controller: FixedExtentScrollController(initialItem: init),
                       itemExtent: 50,
                       useMagnifier: true,
                       magnification: 1.3,
@@ -119,7 +122,6 @@ class _AgeScreenState extends State<AgeScreen> {
                       const Spacer(),
                       GestureDetector(
                         onTap: () {
-                          userProvider.setAge(int.parse(ages[userProvider.age]));
                           Navigator.pushNamed(context, '/weight');
                         },
                         child: Container(

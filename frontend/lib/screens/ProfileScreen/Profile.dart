@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -71,8 +72,8 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Team \nShadow',
+              Text(
+                userProv.name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
