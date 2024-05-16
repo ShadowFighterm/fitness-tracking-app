@@ -1,5 +1,5 @@
 import 'package:calendar_slider/calendar_slider.dart';
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

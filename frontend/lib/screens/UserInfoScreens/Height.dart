@@ -1,25 +1,24 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
-class ActivityScreen extends StatefulWidget {
-  const ActivityScreen({super.key});
+class HeightScreen extends StatefulWidget {
+  const HeightScreen({super.key});
 
   @override
-  State<ActivityScreen> createState() => _ActivityScreenState();
+  State<HeightScreen> createState() => _HeightScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _HeightScreenState extends State<HeightScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> levels = [
-      'Rookie',
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-      'Pro',
-    ];
-
+    List<String> ages = [];
+    for (int i = 1; i < 150; i++) {
+      ages.add(i.toString());
+    }
+    var init = 55;
     var size = MediaQuery.of(context).size;
+    userProv.setHeight(init);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -37,7 +36,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR GOAL.",
+              "SELECT YOUR HEIGHT IN CENTIMETERS",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -48,52 +47,46 @@ class _ActivityScreenState extends State<ActivityScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "You can change your Goal information \n after weight lose :)",
+              "This will help us to know much \n more about you",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.03,
             ),
             SizedBox(
-              height: size.height * 0.02,
-            ),
-            SizedBox(
-              height: size.height * 0.45,
-              child: RotatedBox(
-                quarterTurns: 0,
-                child: ListWheelScrollView(
-                  physics: const FixedExtentScrollPhysics(),
-                  controller: FixedExtentScrollController(initialItem: 3),
-                  itemExtent: size.height * 0.090,
-                  useMagnifier: true,
-                  magnification: 1.3,
-                  overAndUnderCenterOpacity: 0.4,
-                  onSelectedItemChanged: (value) {
-                    setState(() {});
-                    print(value);
-                  },
-                  diameterRatio: 55,
-                  children: levels.map((level) {
-                    return Text(
-                      level,
-                      style: TextStyle(
-                          fontSize: size.height * 0.040,
-                          color: mainColor,
-                          fontWeight: FontWeight.bold),
-                    );
-                  }).toList(),
-                ),
+              height: size.height * 0.46,
+              child: ListWheelScrollView(
+                physics: const FixedExtentScrollPhysics(),
+                controller: FixedExtentScrollController(initialItem: init),
+                itemExtent: 50,
+                useMagnifier: true,
+                magnification: 1.3,
+                overAndUnderCenterOpacity: 0.2,
+                onSelectedItemChanged: (value) {
+                  print(value);
+                  userProv.setHeight(value);
+                },
+                diameterRatio: 1.3,
+                children: List.generate(
+                    300,
+                    (index) => Text(
+                          (index).toString() + " cm",
+                          style: TextStyle(
+                              color: mainColor,
+                              fontSize: size.height * 0.05,
+                              fontWeight: FontWeight.bold),
+                        )),
               ),
             ),
             SizedBox(
-              height: size.height * 0.06,
+              height: size.height * 0.07,
             ),
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/weight');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -115,7 +108,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/activity');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

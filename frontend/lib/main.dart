@@ -1,18 +1,22 @@
-
-import 'package:db_final_project_fitness_app/screens/TargetScreen/TargetScreen.dart';
-import 'package:db_final_project_fitness_app/SignupLoginScreens/ForgotPassword.dart';
-import 'package:db_final_project_fitness_app/screens/ProfilePage/profilePage.dart';
-import 'package:db_final_project_fitness_app/screens/AgeScreen/GoalScreen.dart';
-import 'package:db_final_project_fitness_app/SignupLoginScreens/loginSignUp.dart';
-import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
-import 'package:db_final_project_fitness_app/screens/AgeScreen/ActivityScreen.dart';
-import 'package:db_final_project_fitness_app/screens/AgeScreen/WeightScreen.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/NavigationBar.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/workoutCategories.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Account.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/PrivacyPolicy.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Settings.dart';
+import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/ForgotPassword.dart';
+import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/LoginSignUp.dart';
+import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Activity.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Age.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Gender.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Goal.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Height.dart';
+import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Weight.dart';
 import 'package:flutter/material.dart';
-import 'screens/ProfilePage/PrivacyPolicy.dart';
-import 'screens/ProfilePage/SettingsPage.dart';
-import 'screens/ageScreen/ageScreen.dart';
-import 'screens/genderScreen/genderScreen.dart';
-import 'screens/AgeScreen/HeightScreen.dart';
+
 void main() {
   runApp(const FitnessApp());
 }
@@ -21,9 +25,9 @@ class FitnessApp extends StatelessWidget {
   const FitnessApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       color: Colors.black,
-        routes: {
+      routes: {
         '/startup': (context) => StartupScreen(),
         '/gender': (context) => GenderScreen(),
         '/age': (context) => AgeScreen(),
@@ -31,15 +35,19 @@ class FitnessApp extends StatelessWidget {
         '/weight': (context) => WeightScreen(),
         '/activity': (context) => ActivityScreen(),
         '/goal': (context) => GoalScreen(),
-        '/forgotPassword': (context) => ForgotPasswordScreen(),
+        '/ForgotPassword': (context) => ForgotPasswordScreen(),
         '/login': (context) => SignUp(),
+        '/home': (context) => HomePage(),
+        '/notifications': (context) => NotificationPage(),
+        '/WorkoutCategories': (context) => WorkoutCategories(),
+        '/NavigationBar': (context) => HomepageNavbar(),
         '/profile': (context) => ProfilePage(),
-        '/privacyPolicy': (context) => PrivacyPolicyPage(),
+        '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/settings': (context) => SettingsPage(),
-        
+        '/account': (context) => AccountInfoPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: ForgotPasswordScreen(),
+      home: StartupScreen(),
     );
   }
 }

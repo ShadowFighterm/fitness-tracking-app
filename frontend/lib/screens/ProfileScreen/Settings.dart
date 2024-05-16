@@ -1,4 +1,4 @@
-import 'package:db_final_project_fitness_app/screens/profilePage/profilePage.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {

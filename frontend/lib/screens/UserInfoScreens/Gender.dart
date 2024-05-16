@@ -1,4 +1,7 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class GenderScreen extends StatefulWidget {
@@ -14,6 +17,7 @@ class _GenderScreenState extends State<GenderScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    userProv.setGender("male");
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -31,7 +35,7 @@ class _GenderScreenState extends State<GenderScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "TELL US ABOUT YOUR \n GENDER_!",
+              "TELL US ABOUT YOUR \n GENDER!",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -42,7 +46,7 @@ class _GenderScreenState extends State<GenderScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "This will help us to know much \n more about you.",
+              "This will help us to know much \n more about you",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -57,6 +61,7 @@ class _GenderScreenState extends State<GenderScreen> {
                   isfemale = false;
                 });
                 print("pressed male");
+                userProv.setGender("male");
               },
               child: Container(
                 padding: EdgeInsets.all(size.width * 0.06),
@@ -96,6 +101,7 @@ class _GenderScreenState extends State<GenderScreen> {
                   isfemale = true;
                 });
                 print("pressed female");
+                userProv.setGender("female");
               },
               child: Container(
                 padding: EdgeInsets.all(size.width * 0.06),
@@ -131,10 +137,10 @@ class _GenderScreenState extends State<GenderScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/startup');},
                   child: Container(
                     margin: EdgeInsets.only(
-                      top: size.height * 0.02,
+                      top: size.height * 0.001,
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.05,
@@ -162,7 +168,7 @@ class _GenderScreenState extends State<GenderScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     margin: EdgeInsets.only(
-                      top: size.height * 0.02,
+                      top: size.height * 0.001,
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.05,

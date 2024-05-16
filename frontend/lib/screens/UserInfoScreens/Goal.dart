@@ -1,26 +1,27 @@
-import 'package:db_final_project_fitness_app/constants.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
-class WeightScreen extends StatefulWidget {
-  const WeightScreen({super.key});
+class GoalScreen extends StatefulWidget {
+  const GoalScreen({super.key});
 
   @override
-  State<WeightScreen> createState() => _WeightScreenState();
+  State<GoalScreen> createState() => _GoalScreenState();
 }
 
-class _WeightScreenState extends State<WeightScreen> {
-  double weight = 50;
+class _GoalScreenState extends State<GoalScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> weights = [];
-    for (int i = 1; i < 250; i++) {
-      weights.add("≡");
-      weights.add("◢◤");
-      weights.add("𝄚");
-      weights.add("◢◤");
-    }
-
+    List<String> goals = [
+      'Lose Weight',
+      'Gain Weight',
+      'Stay Fit',
+      'Build Muscle',
+      'Stay Healthy',
+    ];
+    var init = 3;
     var size = MediaQuery.of(context).size;
+    userProv.setGoal(goals[init]);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -38,7 +39,7 @@ class _WeightScreenState extends State<WeightScreen> {
               height: size.height * 0.11,
             ),
             Text(
-              "SELECT YOUR WEIGHT IN KILOGRAMS ?",
+              "SELECT YOUR GOAL",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 0.03,
@@ -49,7 +50,7 @@ class _WeightScreenState extends State<WeightScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "You can change your weight information \n after weight lose :)",
+              "You can change your Goal information \n after weight lose",
               style:
                   TextStyle(color: Colors.white, fontSize: size.height * 0.016),
               textAlign: TextAlign.center,
@@ -57,38 +58,32 @@ class _WeightScreenState extends State<WeightScreen> {
             SizedBox(
               height: size.height * 0.05,
             ),
-            Text('$weight kg',
-                style: TextStyle(
-                  color: mainColor,
-                  fontSize: size.height * 0.04,
-                  fontWeight: FontWeight.bold,
-                )),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.02,
             ),
             SizedBox(
-              height: size.height * 0.35,
+              height: size.height * 0.45,
               child: RotatedBox(
-                quarterTurns: 1,
+                quarterTurns: 0,
                 child: ListWheelScrollView(
                   physics: const FixedExtentScrollPhysics(),
-                  controller: FixedExtentScrollController(initialItem: 50),
+                  controller: FixedExtentScrollController(initialItem: init),
                   itemExtent: size.height * 0.090,
                   useMagnifier: true,
                   magnification: 1.3,
-                  overAndUnderCenterOpacity: 0.3,
+                  overAndUnderCenterOpacity: 0.4,
                   onSelectedItemChanged: (value) {
-                    setState(() {
-                      weight = ((value + 1) / 4);
-                    });
+                    setState(() {});
                     print(value);
+                    print(goals[value]);
+                    userProv.setGoal(goals[value]);
                   },
                   diameterRatio: 55,
-                  children: weights.map((level) {
+                  children: goals.map((level) {
                     return Text(
                       level,
                       style: TextStyle(
-                          fontSize: size.height * 0.080,
+                          fontSize: size.height * 0.040,
                           color: mainColor,
                           fontWeight: FontWeight.bold),
                     );
@@ -97,12 +92,12 @@ class _WeightScreenState extends State<WeightScreen> {
               ),
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.06,
             ),
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/activity');},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -124,7 +119,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {Navigator.pushNamed(context, '/login');},
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

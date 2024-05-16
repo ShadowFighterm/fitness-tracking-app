@@ -1,7 +1,8 @@
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:db_final_project_fitness_app/constants.dart';
-import 'package:db_final_project_fitness_app/Provider/user_provider.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/Provider/userprov.dart';
 
 class AgeScreen extends StatefulWidget {
   const AgeScreen({Key? key}) : super(key: key);
@@ -17,14 +18,17 @@ class _AgeScreenState extends State<AgeScreen> {
     for (int i = 1; i < 150; i++) {
       ages.add(i.toString());
     }
-
+    var init = 35;
     var size = MediaQuery.of(context).size;
+    userProv.setAge(init);
+    print(userProv.age);
     return Scaffold(
       backgroundColor: Colors.black,
       body: ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
         child: Consumer<UserProvider>(
-          builder: (context, userProvider, _) {
+          builder: (context, userProvider, _)
+          {
             return Container(
               padding: EdgeInsets.only(
                 top: size.height * 0.02,
@@ -52,7 +56,7 @@ class _AgeScreenState extends State<AgeScreen> {
                     height: size.height * 0.02,
                   ),
                   Text(
-                    "This will help us to know much \n more about you.",
+                    "This will help us to know much \n more about you",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: size.height * 0.016,
@@ -66,19 +70,20 @@ class _AgeScreenState extends State<AgeScreen> {
                     height: size.height * 0.46,
                     child: ListWheelScrollView(
                       physics: const FixedExtentScrollPhysics(),
-                      controller: FixedExtentScrollController(initialItem: 30),
+                      controller: FixedExtentScrollController(initialItem: init),
                       itemExtent: 50,
                       useMagnifier: true,
                       magnification: 1.3,
                       overAndUnderCenterOpacity: 0.2,
                       onSelectedItemChanged: (value) {
                         print(value);
+                        userProv.setAge(value);
                       },
                       diameterRatio: 1.3,
                       children: List.generate(
                         120,
                         (index) => Text(
-                          (index + 5).toString(),
+                          (index).toString(),
                           style: TextStyle(
                             color: mainColor,
                             fontSize: size.height * 0.05,
@@ -94,7 +99,7 @@ class _AgeScreenState extends State<AgeScreen> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {Navigator.pushNamed(context, '/gender');},
                         child: Container(
                           margin: EdgeInsets.only(
                             top: size.height * 0.02,
@@ -117,7 +122,6 @@ class _AgeScreenState extends State<AgeScreen> {
                       const Spacer(),
                       GestureDetector(
                         onTap: () {
-                          userProvider.setAge(int.parse(ages[userProvider.age]));
                           Navigator.pushNamed(context, '/weight');
                         },
                         child: Container(

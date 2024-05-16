@@ -8,6 +8,7 @@ exports.register = async(req, res) =>
             console.log(req.body);
             const
             {
+                name,
                 email,
                 password,
                 age,
@@ -15,15 +16,15 @@ exports.register = async(req, res) =>
                 height,
                 weight,
                 goal,
-                activity,
+                activity,  
             } = req.body;
             const SameUser = await UserServices.GetUserByMail(email);
             if(SameUser)
                 {
                     return res.status(400).json({message: 'User already exists'});
                 }
-            const user = await UserServices.RegisterUser(email,password,age,gender,height,weight,goal,activity);
-            res.json({status: "Success", message: "User has been registered succesfully"});
+            const user = await UserServices.RegisterUser(name,email,password,age,gender,height,weight,goal,activity);
+            res.status(200).json({status: "Success", message: "User has been registered succesfully"});
         }
         catch(err)
         {
@@ -41,7 +42,7 @@ exports.register = async(req, res) =>
                     {
                         return res.status(400).json({message: 'User does not exists'});
                     }
-                const PasswordMatch = await UserServices.ComparePassword(password);
+                const PasswordMatch = await UserServices.ComparePassword(email, password);
                 if(!PasswordMatch)
                     {
                         return res.status(400).json({message: 'Invalid password'});
@@ -55,12 +56,19 @@ exports.register = async(req, res) =>
                 const token= await UserServices.GenerateTokens(tokenData,jwtKey,"24h");
                 res.status(200).json(
                     {
-                        status:"success",
-                        message:"User Logged in successfully",
-                        token:token,
+                        status: "success",
+                        message: "User logged in successfully",
+                        token: token,
+                        name: user.name,
+                        gender: user.gender,
+                        age: user.age,
+                        height: user.height,
+                        weight: user.weight,
+                        activity: user.activity,
+                        goal: user.goal,
                     }
                 );
-
+                console.log('Loged in');
             }
             catch(err)
             {
@@ -68,4 +76,4 @@ exports.register = async(req, res) =>
                 res.status(500).json({message: "Internal server error"});
             }
 
-        }f
+        }

@@ -1,9 +1,16 @@
+const { Double } = require('mongodb');
 const db = require('../db/db');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose; 
 const UserSchema = new Schema
 ({
+    name: 
+    {
+        type: String,
+        require: [true, 'Name is Required'],
+    },
     email:
     {
         type:String,
@@ -11,9 +18,9 @@ const UserSchema = new Schema
         unique: true,
         lowercase: true,
         match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Please type a valid email address'],
-    },
+    }, 
     password: 
-    {
+    { 
         type: String,
         required: [true, 'Password is required'],
     },
@@ -43,7 +50,7 @@ const UserSchema = new Schema
         type: String,
         required: [true, 'Goal is required']
     },
-    ActivityLevel:
+    activity:
     {
         type: String,
         required: [true, 'Activity Level is required']
@@ -62,7 +69,7 @@ UserSchema.pre('save', async function()
         user.password = hash;
 
     }
-    catch(arr)
+    catch(err)
     {
         console.log(err);
     }

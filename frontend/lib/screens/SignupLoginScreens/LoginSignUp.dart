@@ -1,10 +1,11 @@
-import 'package:db_final_project_fitness_app/constants.dart';
-import 'package:db_final_project_fitness_app/screens/StartupScreen/StartupScreeb.dart';
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
+import 'package:db_final_project_fitness_app/Provider/userprov.dart';
+import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
-
-import '../Provider/auth_provider.dart';
+import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -12,27 +13,48 @@ class SignUp extends StatefulWidget {
   @override
   State<SignUp> createState() => _SignUpState();
 }
-class  _SignUpState extends State<SignUp> {
- late PageController _pageController;
+
+class _SignUpState extends State<SignUp> {
+  late PageController _pageController;
   bool isLoginSelected = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   bool _isNotValidate = false;
-    void loginUser() async
-    {
+
+  void registerUser() async {
+    if (_nameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      userProv.setName(_nameController.text);
+      var res = await AuthProvider.registerUser(
+          userProv.name,
+          _emailController.text,
+          _passwordController.text,
+          userProv.age,
+          userProv.gender,
+          userProv.height,
+          userProv.weight,
+          userProv.goal,
+          userProv.activityLevel);
+      if (res == "success") {
+        Navigator.pushNamed(context, '/login');
+      }
+    } else {
+      setState(() {
+        _isNotValidate = true;
+      });
+    }
+  }
+
+  void loginUser() async {
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
       var token = await AuthProvider.loginUser(
           _emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StartupScreen(),
-          ),
-        );
+        Navigator.pushNamed(context, '/NavigationBar');
       } else {
         print('Login failed');
       }
@@ -42,6 +64,7 @@ class  _SignUpState extends State<SignUp> {
       });
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +74,7 @@ class  _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -85,8 +108,7 @@ class  _SignUpState extends State<SignUp> {
                     );
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor:
-                        isLoginSelected ? mainColor : Colors.white,
+                    foregroundColor: isLoginSelected ? mainColor : Colors.white,
                     textStyle: TextStyle(
                         shadows: isLoginSelected
                             ? const [
@@ -116,8 +138,7 @@ class  _SignUpState extends State<SignUp> {
                     );
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor:
-                        isLoginSelected ? Colors.white : mainColor,
+                    foregroundColor: isLoginSelected ? Colors.white : mainColor,
                     textStyle: TextStyle(
                       shadows: isLoginSelected
                           ? null
@@ -139,12 +160,12 @@ class  _SignUpState extends State<SignUp> {
                   ),
                 ),
                 const Expanded(child: SizedBox.shrink()),
-                //CircleAvatar  
+                //CircleAvatar
                 isLoginSelected
                     ? const CircleAvatar(
                         radius: 25,
                         backgroundImage:
-                            AssetImage('assets/extraimages/profile.jpg'),
+                            AssetImage('assets/Images/profile.jpg'),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -156,7 +177,7 @@ class  _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isLoginSelected
-                    ? "Welcome back, \nSarah".toUpperCase()
+                    ? "Welcome back, \nUser".toUpperCase()
                     : "Hello rookies".toUpperCase(),
                 style: TextStyle(
                   fontSize: size.width * 0.095,
@@ -182,7 +203,7 @@ class  _SignUpState extends State<SignUp> {
                 },
                 children: [
                   // Login Page
-                  
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -235,7 +256,7 @@ class  _SignUpState extends State<SignUp> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/forgotpassword');
+                                Navigator.pushNamed(context, '/ForgotPassword');
                               },
                               child: const Text(
                                 "Forgot Password ?",
@@ -248,7 +269,7 @@ class  _SignUpState extends State<SignUp> {
                             ),
                           ],
                         ),
-                        SizedBox(height: size.height * 0.075),
+                        SizedBox(height: size.height * 0.025),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -264,7 +285,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Google sign-in logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/google.png',
+                                  'assets/Images/google.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -283,7 +304,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Apple sign-in logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/apple.png',
+                                  'assets/Images/apple.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -298,8 +319,7 @@ class  _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
-                                onPressed: ()
-                                {
+                                onPressed: () {
                                   // _login();
                                   loginUser();
                                 },
@@ -416,7 +436,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Google sign-up logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/google.png',
+                                  'assets/Images/google.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -435,7 +455,7 @@ class  _SignUpState extends State<SignUp> {
                                   // Add Apple sign-up logic
                                 },
                                 child: Image.asset(
-                                  'assets/extraimages/apple.png',
+                                  'assets/Images/apple.png',
                                   color: Colors.white,
                                   height: size.height * 0.05,
                                 ),
@@ -451,8 +471,14 @@ class  _SignUpState extends State<SignUp> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  // registerUser();
-                                  //print the user details
+                                  registerUser();
+                                  print(userProv.name);
+                                  print(userProv.gender);
+                                  print(userProv.age);
+                                  print(userProv.height);
+                                  print(userProv.weight);
+                                  print(userProv.activityLevel);
+                                  print(userProv.goal);
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -496,4 +522,4 @@ class  _SignUpState extends State<SignUp> {
     _passwordController.dispose();
     super.dispose();
   }
-} 
+}
