@@ -6,6 +6,7 @@ import 'package:db_final_project_fitness_app/screens/ProfileScreen/Account.dart'
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/PrivacyPolicy.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Settings.dart';
+import 'package:db_final_project_fitness_app/screens/ProfileScreen/exercises.dart';
 import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/ForgotPassword.dart';
 import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/LoginSignUp.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
@@ -28,26 +29,26 @@ class FitnessApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       routes: {
-        '/startup': (context) => StartupScreen(),
-        '/gender': (context) => GenderScreen(),
-        '/age': (context) => AgeScreen(),
-        '/height': (context) => HeightScreen(),
-        '/weight': (context) => WeightScreen(),
-        '/activity': (context) => ActivityScreen(),
-        '/goal': (context) => GoalScreen(),
-        '/ForgotPassword': (context) => ForgotPasswordScreen(),
-        '/login': (context) => SignUp(),
-        '/home': (context) => HomePage(),
-        '/notifications': (context) => NotificationPage(),
-        '/WorkoutCategories': (context) => WorkoutCategories(),
-        '/NavigationBar': (context) => HomepageNavbar(),
-        '/profile': (context) => ProfilePage(),
+        '/startup': (context) => const StartupScreen(),
+        '/gender': (context) => const GenderScreen(),
+        '/age': (context) => const AgeScreen(),
+        '/height': (context) => const HeightScreen(),
+        '/weight': (context) => const WeightScreen(),
+        '/activity': (context) => const ActivityScreen(),
+        '/goal': (context) => const GoalScreen(),
+        '/ForgotPassword': (context) => const ForgotPasswordScreen(),
+        '/login': (context) => const SignUp(),
+        '/home': (context) => const HomePage(),
+        '/notifications': (context) => const NotificationPage(),
+        '/WorkoutCategories': (context) => const WorkoutCategories(),
+        '/NavigationBar': (context) => const HomepageNavbar(),
+        '/profile': (context) => const ProfilePage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
-        '/settings': (context) => SettingsPage(),
-        '/account': (context) => AccountInfoPage(),
+        '/settings': (context) => const SettingsPage(),
+        '/account': (context) => const AccountInfoPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: StartupScreen(),
+      home: const ExerciseInputPage(),
     );
   }
 }

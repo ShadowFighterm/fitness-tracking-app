@@ -47,79 +47,79 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Name:',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               TextFormField(
                 controller: nameController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your name',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Weight (kg):',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               TextFormField(
                 controller: weightController,
                 keyboardType: TextInputType.number,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your weight',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Height (cm):',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               TextFormField(
                 controller: heightController,
                 keyboardType: TextInputType.number,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your height',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Age:',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               TextFormField(
                 controller: ageController,
                 keyboardType: TextInputType.number,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your age',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Goal:',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               TextFormField(
                 controller: goalController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your goal',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   // Save the changes
@@ -136,8 +136,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),
                 ),
-                child:
-                    Text('Save Changes', style: TextStyle(color: Colors.black)),
+                child: const Text('Save Changes',
+                    style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
