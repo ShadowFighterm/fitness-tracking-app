@@ -21,11 +21,11 @@ class ManageFriend extends StatefulWidget {
 
 class _FriendPageState extends State<ManageFriend> {
   List<Friend> friends = [
-    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/friend1.jpg'),
-    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/friend2.jpg'),
-    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/friend3.jpg'),
-    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/friend4.jpg'),
-    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/friend5.jpg'),
+    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
   ];
 
   TextEditingController _controller = TextEditingController();

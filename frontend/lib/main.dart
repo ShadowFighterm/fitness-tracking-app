@@ -32,8 +32,7 @@ class FitnessApp extends StatelessWidget {
       color: Colors.black,
         routes: {
 
-        '/manageFriends': (context) => ManageFriend(),             
-        '/leaderboard':(context)=>LeaderBoardPage(),
+      
         '/startup': (context) => StartupScreen(),
         '/gender': (context) => GenderScreen(),
         '/age': (context) => AgeScreen(),
@@ -47,6 +46,8 @@ class FitnessApp extends StatelessWidget {
         '/notifications': (context) => NotificationPage(),
         '/WorkoutCategories': (context) => WorkoutCategories(),
         '/NavigationBar': (context) => HomepageNavbar(),
+        '/manageFriends': (context) => ManageFriend(),             
+        '/leaderboard':(context)=>LeaderBoardPage(),
         '/profile': (context) => ProfilePage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/settings': (context) => SettingsPage(),
@@ -54,7 +55,7 @@ class FitnessApp extends StatelessWidget {
         
       },
       debugShowCheckedModeBanner: false,
-      home: ManageFriend(),
+      home: StartupScreen(),
     );
   }
 }
