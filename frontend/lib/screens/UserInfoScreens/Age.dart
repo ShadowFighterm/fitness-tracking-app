@@ -99,7 +99,7 @@ class _AgeScreenState extends State<AgeScreen> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {Navigator.pushNamed(context, '/gender');},
+                        onTap: () {Navigator.pop(context);},
                         child: Container(
                           margin: EdgeInsets.only(
                             top: size.height * 0.02,

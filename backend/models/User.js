@@ -54,7 +54,12 @@ const UserSchema = new Schema
     {
         type: String,
         required: [true, 'Activity Level is required']
-    }
+    },
+    // date:
+    // {
+    //     type: Date,
+    //     rrequired: [true, 'Join Date is required']
+    // }
 }, {timestamps: true});
 
 UserSchema.pre('save', async function()
@@ -89,5 +94,9 @@ UserSchema.methods.ComparePassword = async function(password)
     }
 }
 
+UserSchema.methods.UpdateUserInfo = async function(name, weight, height, age, goal)
+{
+    
+}
 const UserMod = db.model('User', UserSchema);
 module.exports = UserMod;

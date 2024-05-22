@@ -25,6 +25,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   TextEditingController goalController = TextEditingController();
 
   @override
+  void UpdateUserInfo(String email, String name, double weight, int height, int age, String goal) async 
+  {
+
+  }
   void initState() {
     super.initState();
     // Set initial values to controllers
@@ -123,17 +127,24 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async 
+                {
                   // Save the changes
+                  var res = await userProv.UpdateUserInfo(userProv.email, nameController.text, double.parse(weightController.text), int.parse(heightController.text), int.parse(ageController.text), goalController.text);
                   setState(() {
-                    name = nameController.text;
-                    weight = double.parse(weightController.text);
-                    height = int.parse(heightController.text);
-                    age = int.parse(ageController.text);
-                    goal = goalController.text;
+                    name = userProv.name;
+                    weight = userProv.weight;
+                    height = userProv.height;
+                    age = userProv.age;
+                    goal = userProv.goal;
                   });
                   // You can add further logic here to save the changes permanently
-                  Navigator.pop(context); // Go back to the previous screen
+                  if(res == "success")
+                  {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/NavigationBar');
+                  } // Go back to the previous screen
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),

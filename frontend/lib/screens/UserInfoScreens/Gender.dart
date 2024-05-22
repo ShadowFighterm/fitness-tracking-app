@@ -137,7 +137,7 @@ class _GenderScreenState extends State<GenderScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/startup');},
+                  onTap: () {Navigator.pop(context);},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.001,

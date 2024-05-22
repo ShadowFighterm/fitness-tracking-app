@@ -66,14 +66,41 @@ exports.register = async(req, res) =>
                         weight: user.weight,
                         activity: user.activity,
                         goal: user.goal,
+                        email: user.email,
                     }
                 );
                 console.log('Loged in');
             }
             catch(err)
             {
-                console.log(err);
+                console.log(err); 
                 res.status(500).json({message: "Internal server error"});
             }
 
         }
+        exports.updateUserInfo = async (req, res) =>
+            {
+                try
+                {
+                    const { email, name, height, weight, age, goal } = req.body;
+                    const updatedUser = await UserServices.UpdateUserInfo(email, name, height, weight, age, goal);
+            
+                    res.status(200).json({
+                        status: "Success",
+                        message: "User information has been updated successfully",
+                        name: updatedUser.name,
+                        email: updatedUser.email,
+                        height: updatedUser.height,
+                        weight: updatedUser.weight,
+                        age: updatedUser.age,
+                        goal: updatedUser.goal,
+                        gender: updatedUser.gender,
+                        activity: updatedUser.activity                            
+                    });
+                }
+                catch(err)
+                {
+                    console.log(err);
+                    res.status(500).json({ message: "Internal server error" });
+                }
+            }

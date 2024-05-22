@@ -86,7 +86,7 @@ class _HeightScreenState extends State<HeightScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/weight');},
+                  onTap: () {Navigator.pop(context);},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,

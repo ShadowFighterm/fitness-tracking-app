@@ -26,6 +26,7 @@ class  _SignUpState extends State<SignUp> {
       if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
       {
         userProv.setName(_nameController.text);
+        userProv.setEmail(_emailController.text);
         var res = await AuthProvider.registerUser(
           userProv.name,
           _emailController.text, _passwordController.text, 
@@ -33,7 +34,11 @@ class  _SignUpState extends State<SignUp> {
           userProv.weight, userProv.goal, userProv.activityLevel);
         if(res == "success")
         {
-          Navigator.pushNamed(context, '/login');
+          _pageController.animateToPage(
+                      0,
+                      duration: const Duration(milliseconds: 5),
+                      curve: Curves.easeInOut,
+                    );
         }
       }
       else
@@ -52,6 +57,7 @@ class  _SignUpState extends State<SignUp> {
           _emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
+        Navigator.pop(context);
         Navigator.pushNamed(context,'/NavigationBar');
       } else {
         print('Login failed');
