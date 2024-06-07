@@ -15,6 +15,9 @@ import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Gender.dart
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Goal.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Height.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Weight.dart';
+
+import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +31,8 @@ class FitnessApp extends StatelessWidget {
     return  MaterialApp(
       color: Colors.black,
         routes: {
+
+      
         '/startup': (context) => StartupScreen(),
         '/gender': (context) => GenderScreen(),
         '/age': (context) => AgeScreen(),
@@ -41,6 +46,8 @@ class FitnessApp extends StatelessWidget {
         '/notifications': (context) => NotificationPage(),
         '/WorkoutCategories': (context) => WorkoutCategories(),
         '/NavigationBar': (context) => HomepageNavbar(),
+        '/manageFriends': (context) => ManageFriend(),             
+        '/leaderboard':(context)=>LeaderBoardPage(),
         '/profile': (context) => ProfilePage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/settings': (context) => SettingsPage(),
