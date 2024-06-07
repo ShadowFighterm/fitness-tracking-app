@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/static.dart';
+import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 
 class ExerciseInputPage extends StatefulWidget {
   const ExerciseInputPage({Key? key}) : super(key: key);
@@ -35,21 +38,53 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildExerciseInputField('Running (minutes):', runningController),
-              buildExerciseInputField('Cycling (minutes):', cyclingController),
+              buildExerciseInputField('Running :', runningController),
+              buildExerciseInputField('Cycling :', cyclingController),
+              buildExerciseInputField('Swimming :', swimmingController),
+              buildExerciseInputField('Walking :', walkingController),
               buildExerciseInputField(
-                  'Swimming (minutes):', swimmingController),
-              buildExerciseInputField('Walking (minutes):', walkingController),
-              buildExerciseInputField(
-                  'Weightlifting (minutes):', weightliftingController),
-              buildExerciseInputField('Yoga (minutes):', yogaController),
-              buildExerciseInputField(
-                  'Jumping Rope (minutes):', jumpingRopeController),
-              buildExerciseInputField(
-                  'Aerobics (minutes):', aerobicsController),
+                  'Weightlifting :', weightliftingController),
+              buildExerciseInputField('Yoga :', yogaController),
+              buildExerciseInputField('Jumping Rope :', jumpingRopeController),
+              buildExerciseInputField('Aerobics :', aerobicsController),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: saveExerciseData,
+                onPressed: () async {
+                  print(runningController.text);
+                  print(cyclingController.text);
+                  print(swimmingController.text);
+                  print(walkingController.text);
+                  print(weightliftingController.text);
+                  print(yogaController.text);
+                  print(jumpingRopeController.text);
+                  print(aerobicsController.text);
+                  await AuthProvider.updateWorkout(
+                      userProv.email,
+                      runningController.text.isEmpty
+                          ? 0
+                          : int.parse(runningController.text),
+                      cyclingController.text.isEmpty
+                          ? 0
+                          : int.parse(cyclingController.text),
+                      swimmingController.text.isEmpty
+                          ? 0
+                          : int.parse(swimmingController.text),
+                      walkingController.text.isEmpty
+                          ? 0
+                          : int.parse(walkingController.text),
+                      weightliftingController.text.isEmpty
+                          ? 0
+                          : int.parse(weightliftingController.text),
+                      yogaController.text.isEmpty
+                          ? 0
+                          : int.parse(yogaController.text),
+                      jumpingRopeController.text.isEmpty
+                          ? 0
+                          : int.parse(jumpingRopeController.text),
+                      aerobicsController.text.isEmpty
+                          ? 0
+                          : int.parse(aerobicsController.text));
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),
                 ),
@@ -85,33 +120,5 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
         const SizedBox(height: 20),
       ],
     );
-  }
-
-  void saveExerciseData() {
-    setState(() {
-      double running = double.tryParse(runningController.text) ?? 0.0;
-      double cycling = double.tryParse(cyclingController.text) ?? 0.0;
-      double swimming = double.tryParse(swimmingController.text) ?? 0.0;
-      double walking = double.tryParse(walkingController.text) ?? 0.0;
-      double weightlifting =
-          double.tryParse(weightliftingController.text) ?? 0.0;
-      double yoga = double.tryParse(yogaController.text) ?? 0.0;
-      double jumpingRope = double.tryParse(jumpingRopeController.text) ?? 0.0;
-      double aerobics = double.tryParse(aerobicsController.text) ?? 0.0;
-
-      // Store the exercise data for the current date
-      userProv.updateExerciseData(currentDate, {
-        'running': running,
-        'cycling': cycling,
-        'swimming': swimming,
-        'walking': walking,
-        'weightlifting': weightlifting,
-        'yoga': yoga,
-        'jumpingRope': jumpingRope,
-        'aerobics': aerobics,
-      });
-    });
-
-    Navigator.pop(context); // Go back to the previous screen
   }
 }

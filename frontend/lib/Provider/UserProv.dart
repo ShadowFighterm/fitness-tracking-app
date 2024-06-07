@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 import 'package:flutter/material.dart';
+import 'package:db_final_project_fitness_app/config.dart';
+import 'package:http/http.dart' as http;
 
 class UserProvider extends ChangeNotifier {
   String _name = '';
@@ -8,8 +12,7 @@ class UserProvider extends ChangeNotifier {
   double _weight = 0;
   String _activityLevel = '';
   String _goal = '';
-  double _caloriesBurned = 0;
-  Map<DateTime, Map<String, double>> _exerciseData = {};
+  String _email = '';
 
   String get name => _name;
   String get gender => _gender;
@@ -18,75 +21,84 @@ class UserProvider extends ChangeNotifier {
   double get weight => _weight;
   String get activityLevel => _activityLevel;
   String get goal => _goal;
-  double get caloriesBurned => _caloriesBurned;
-  Map<DateTime, Map<String, double>> get exerciseData => _exerciseData;
+  String get email => _email;
 
   void setName(String name) {
     _name = name;
-    notifyListeners();
   }
 
   void setGender(String gender) {
     _gender = gender;
-    notifyListeners();
   }
 
   void setAge(int age) {
     _age = age;
-    notifyListeners();
   }
 
   void setHeight(int height) {
     _height = height;
-    notifyListeners();
   }
 
   void setWeight(double weight) {
     _weight = weight;
-    notifyListeners();
   }
 
   void setActivityLevel(String activityLevel) {
     _activityLevel = activityLevel;
-    notifyListeners();
   }
 
   void setGoal(String goal) {
     _goal = goal;
-    notifyListeners();
   }
 
-  void updateExerciseData(DateTime date, Map<String, double> data) {
-    _exerciseData[date] = data;
-    _updateCaloriesBurned(date);
-    notifyListeners();
+  void setEmail(String email) {
+    _email = email;
   }
 
-  void _updateCaloriesBurned(DateTime date) {
-    if (_exerciseData.containsKey(date)) {
-      double totalCalories = 0;
-      Map<String, double>? exercises = _exerciseData[date];
-      exercises?.forEach((exercise, duration) {
-        totalCalories += _calculateCalories(exercise, duration);
-      });
-      _caloriesBurned = totalCalories;
+  void LoadUserInfo(var jsonReponse) {
+    setEmail(jsonReponse['email']);
+    setName(jsonReponse['name']);
+    setGender(jsonReponse['gender']);
+    setAge(jsonReponse['age']);
+    setHeight(jsonReponse['height']);
+    if (jsonReponse['weight'] is int) {
+      setWeight(jsonReponse['weight'].toDouble());
     } else {
-      _caloriesBurned = 0;
+      setWeight(jsonReponse['weight']);
     }
+    setActivityLevel(jsonReponse['activity']);
+    setGoal(jsonReponse['goal']);
   }
 
-  double _calculateCalories(String exercise, double duration) {
-    const Map<String, double> caloriesPerMinute = {
-      'running': 10.0,
-      'cycling': 8.5,
-      'swimming': 9.5,
-      'walking': 3.8,
-      'weightlifting': 6.0,
-      'yoga': 3.0,
-      'jumpingRope': 12.0,
-      'aerobics': 7.0,
-    };
-
-    return caloriesPerMinute[exercise.toLowerCase()]! * duration;
+  // ignore: non_constant_identifier_names
+  Future<String?> UpdateUserInfo(String email, String name, double weight,
+      int height, int age, String goal) async {
+    try {
+      var reqBody = {
+        "email": email,
+        "name": name,
+        "weight": weight,
+        "height": height,
+        "age": age,
+        "goal": goal
+      };
+      var response = await http.post(
+        Uri.parse(update),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody),
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        print('Update successful');
+        LoadUserInfo(jsonResponse);
+        return "success";
+      } else {
+        print('Server error');
+        return null;
+      }
+    } catch (e) {
+      print('Error saving: $e');
+      return null;
+    }
   }
 }

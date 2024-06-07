@@ -1,10 +1,6 @@
-import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
-import 'package:db_final_project_fitness_app/Provider/userprov.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
-import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
 import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 
 class SignUp extends StatefulWidget {
@@ -27,6 +23,7 @@ class _SignUpState extends State<SignUp> {
         _emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
       userProv.setName(_nameController.text);
+      userProv.setEmail(_emailController.text);
       var res = await AuthProvider.registerUser(
           userProv.name,
           _emailController.text,
@@ -38,7 +35,11 @@ class _SignUpState extends State<SignUp> {
           userProv.goal,
           userProv.activityLevel);
       if (res == "success") {
-        Navigator.pushNamed(context, '/login');
+        _pageController.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 5),
+          curve: Curves.easeInOut,
+        );
       }
     } else {
       setState(() {
@@ -54,6 +55,7 @@ class _SignUpState extends State<SignUp> {
           _emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
+        Navigator.pop(context);
         Navigator.pushNamed(context, '/NavigationBar');
       } else {
         print('Login failed');
@@ -210,6 +212,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextField(
                           controller: _emailController,
+                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -233,6 +236,7 @@ class _SignUpState extends State<SignUp> {
                           controller: _passwordController,
                           obscureText: true,
                           cursorColor: Colors.grey,
+                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(
@@ -359,6 +363,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextField(
                           controller: _nameController,
+                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: "Name",
                             hintStyle: TextStyle(
@@ -380,6 +385,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: size.height * 0.03),
                         TextField(
                           controller: _emailController,
+                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -401,6 +407,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: size.height * 0.03),
                         TextField(
                           controller: _passwordController,
+                          style: const TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Password",

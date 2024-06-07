@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/constants/padding.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
@@ -19,18 +20,32 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: size.height * 0.04),
+          padding: EdgeInsets.only(top: size.height * 0.00),
           child: Container(
             padding: AppPadding.horizontalPadding(context),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Hello User",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: size.width * 0.1,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      userProv.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: size.width * 0.1,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Handle the button tap here
+                        Navigator.pushNamed(context, '/workoutinput');
+                      },
+                      icon: Icon(Icons.add),
+                      label: Text('Add Workout'),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: size.height * 0.005,
