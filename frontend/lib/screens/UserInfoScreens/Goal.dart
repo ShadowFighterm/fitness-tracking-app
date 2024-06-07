@@ -97,7 +97,7 @@ class _GoalScreenState extends State<GoalScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/activity');},
+                  onTap: () {Navigator.pop(context);},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,
@@ -119,7 +119,16 @@ class _GoalScreenState extends State<GoalScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/login');},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/login');
+                    },
                   child: Container(
                     decoration: BoxDecoration(
                       color: mainColor,

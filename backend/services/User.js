@@ -37,9 +37,7 @@ class UserServices
         try
         {
             var user = await this.GetUserByMail(email);
-            const match = await bcrypt.compare(password, user.password);
-            console.log(match);
-            return match
+            return await user.ComparePassword(password);
         }
         catch(err)
         {
@@ -67,6 +65,30 @@ class UserServices
         catch(err)
         {
             console.log(err);
+        }
+    }
+    static async UpdateUserInfo(email, name, height, weight, age, goal)
+    {
+        try
+        {
+            const user = await this.GetUserByMail(email);
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            // Update user details
+            user.name = name || user.name;
+            user.height = height || user.height;
+            user.weight = weight || user.weight;
+            user.age = age || user.age;
+            user.goal = goal || user.goal;
+
+            return await user.save();
+        }
+        catch(err)
+        {
+            console.log(err);
+            throw err;
         }
     }
 }

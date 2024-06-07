@@ -97,7 +97,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/height');},
+                  onTap: () {Navigator.pop(context);},
                   child: Container(
                     margin: EdgeInsets.only(
                       top: size.height * 0.02,

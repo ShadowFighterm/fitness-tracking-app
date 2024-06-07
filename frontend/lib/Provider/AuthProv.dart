@@ -8,18 +8,11 @@ import '../config.dart';
 
 
 
-class AuthProvider extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier
+{
   final UserProvider userProvider;
   AuthProvider(this.userProvider);
-  static void LoadUserInfo(var jsonReponse)
-  {
-    userProv.setGender(jsonReponse['gender']);
-    userProv.setAge(jsonReponse['age']);
-    userProv.setHeight(jsonReponse['height']);
-    userProv.setWeight(jsonReponse['weight']);
-    userProv.setActivityLevel(jsonReponse['activity']);
-    userProv.setGoal(jsonReponse['goal']);
-  }
+  
   static Future<String?> loginUser(String email, String password) async {
     try 
     {
@@ -36,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['message'] == 'User logged in successfully') {
           print('Login successful');
-          AuthProvider.LoadUserInfo(jsonResponse);
+          userProv.LoadUserInfo(jsonResponse);
           return jsonResponse['token'];
         } else {
           print('Authentication failed: ${jsonResponse['message']}');
