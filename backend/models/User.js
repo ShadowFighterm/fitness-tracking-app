@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose; 
+
 const UserSchema = new Schema
 ({
     name: 
@@ -55,20 +56,16 @@ const UserSchema = new Schema
         type: String,
         required: [true, 'Activity Level is required']
     },
-    exerciseRecords: [{
-        date: { type: Date, default: Date.now },
-        calories: { type: Number, default:0},
-        exercises: [{
-            running:{type: Number, default:0,required:false},
-            cycling:{type: Number, default:0,required:false},
-            swimming:{type: Number, default:0,required:false},
-            walking:{type: Number, default:0,required:false},
-            weightlifting:{type: Number, default:0,required:false},
-            yoga:{type: Number, default:0,required:false},
-            jumpingRope:{type: Number, default:0,required:false},
-            aerobics:{type: Number, default:0,required:false},
-        }]
-    }],
+    date:[Date.now.date,{ type: Date, default: Date.now.date }],
+    calories: [{ type: Number, default:0}],
+    running:{type: Number,default:0},
+    cycling:{type: Number,default:0},
+    swimming:{type: Number,default:0},
+    walking:{type: Number,default:0},
+    weightlifting:{type: Number,default:0},
+    yoga:{type: Number,default:0},
+    jumpingRope:{type: Number,default:0},
+    aerobics:{type: Number,default:0},
 }, {timestamps: true});
 
 UserSchema.pre('save', async function()

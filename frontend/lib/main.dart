@@ -50,7 +50,7 @@ class FitnessApp extends StatelessWidget {
         '/workoutinput': (context) => const ExerciseInputPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: const StartupScreen(),
+      home: const SignUp(),
     );
   }
 }
