@@ -1,24 +1,56 @@
 import 'package:calendar_slider/calendar_slider.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/AddActivity.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class workoutProgress extends StatefulWidget
-{
+class workoutProgress extends StatefulWidget {
   const workoutProgress({super.key});
 
   @override
   State<workoutProgress> createState() => _workoutProgressState();
 }
 
-class _workoutProgressState extends State<workoutProgress>
-{
+class _workoutProgressState extends State<workoutProgress> {
   final _firstController = CalendarSliderController();
 
   late DateTime _selectedDateAppBBar;
-  @override
-  Widget build(BuildContext context)
+  var CurrDate;
+  DateTime getThirtyDaysAgo() {
+    return DateTime.now().subtract(const Duration(days: 30));
+  }
+
+  DateTime getToday() {
+    return DateTime.now();
+  }
+
+  void GetProgress ()async
   {
+    await workoutProgressProv.GetProgress(userProv.email, CurrDate.toString().substring(0,10));
+  }
+
+  void ActivityPageCall()async
+  {
+   await Navigator.pushNamed(context, '/AddActivity');
+    setState(()
+    {
+     _selectedDateAppBBar = CurrDate;
+    });
+  }
+  
+  @override
+  
+
+  void initState(){
+    super.initState();
+    CurrDate = getToday();
+    _selectedDateAppBBar = CurrDate;
+    workoutProgressProv.setDate(CurrDate.toString().substring(0,10));
+    print(workoutProgressProv.date);
+  }
+
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -38,13 +70,17 @@ class _workoutProgressState extends State<workoutProgress>
           color: Colors.black.withOpacity(1),
         ),
         locale: 'en',
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now().subtract(const Duration(days: 100)),
-        lastDate: DateTime.now().add(const Duration(days: 100)),
-        onDateSelected: (date) {
-          setState(()
-          {
-            _selectedDateAppBBar = date;
+        initialDate: getToday(),
+        firstDate: getThirtyDaysAgo(),
+        lastDate: getToday(),
+        onDateSelected: (date) async {
+          CurrDate = date;
+          print('Before call email:' + userProv.email);
+          await workoutProgressProv.GetProgress(userProv.email, CurrDate.toString().substring(0,10));
+          setState(() {
+            _selectedDateAppBBar = CurrDate;
+            workoutProgressProv.setDate(CurrDate.toString().substring(0,10));
+            print(CurrDate.toString().substring(0,10));
           });
         },
       ),
@@ -56,13 +92,18 @@ class _workoutProgressState extends State<workoutProgress>
               SizedBox(
                 height: size.height * 0.05,
               ),
-              CircularIndicatorText(
-                text: '652 Cal',
-                subText: 'Active Calories',
-                color: mainColor,
-                strokeWidth: 10,
-                size: size.width * 0.45,
-                value: 0.65,
+              GestureDetector(
+                onTap: () {
+                  this.ActivityPageCall();
+                },
+                child: CircularIndicatorText(
+                  text: workoutProgressProv.caloriesBurnt.toString() + " Cal",
+                  subText: 'Active Calories',
+                  color: mainColor,
+                  strokeWidth: 10,
+                  size: size.width * 0.45,
+                  value: workoutProgressProv.caloriesBurnt / 5000,
+                ),
               ),
               SizedBox(
                 height: size.height * 0.05,
@@ -70,29 +111,44 @@ class _workoutProgressState extends State<workoutProgress>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CircularIndicatorText(
-                    text: '6540',
-                    subText: 'Steps',
-                    color: Colors.red,
-                    strokeWidth: 7,
-                    size: size.width * 0.26,
-                    value: 0.8,
+                  GestureDetector(
+                    onTap: () {
+                      this.ActivityPageCall();
+                    },
+                    child: CircularIndicatorText(
+                      text: workoutProgressProv.steps.toString(),
+                      subText: 'Steps',
+                      color: Colors.red,
+                      strokeWidth: 7,
+                      size: size.width * 0.26,
+                      value: workoutProgressProv.steps / 10000,
+                    ),
                   ),
-                  CircularIndicatorText(
-                    text: '45min',
-                    subText: 'Time',
-                    color: Colors.blue,
-                    strokeWidth: 7,
-                    size: size.width * 0.26,
-                    value: 0.45,
+                  GestureDetector(
+                    onTap: () {
+                      this.ActivityPageCall();
+                    },
+                    child: CircularIndicatorText(
+                      text: workoutProgressProv.time.toString() + "min",
+                      subText: 'Time',
+                      color: Colors.blue,
+                      strokeWidth: 7,
+                      size: size.width * 0.26,
+                      value: workoutProgressProv.time / 60,
+                    ),
                   ),
-                  CircularIndicatorText(
-                    text: '72bpm',
-                    subText: 'Heart',
-                    color: Colors.orange,
-                    strokeWidth: 7,
-                    size: size.width * 0.26,
-                    value: 0.62,
+                  GestureDetector(
+                    onTap: () {
+                      this.ActivityPageCall();
+                    },
+                    child: CircularIndicatorText(
+                      text: workoutProgressProv.heartRate.toString() + "bpm",
+                      subText: 'Heart',
+                      color: Colors.orange,
+                      strokeWidth: 7,
+                      size: size.width * 0.26,
+                      value: workoutProgressProv.heartRate / 150,
+                    ),
                   ),
                 ],
               ),
@@ -155,10 +211,7 @@ class _workoutProgressState extends State<workoutProgress>
 
 class TextCheckboxContainer extends StatelessWidget {
   const TextCheckboxContainer(
-      {super.key,
-      required this.text,
-      required this.subtext,
-      required this.value});
+      {super.key, required this.text, required this.subtext, required this.value});
 
   final String text;
   final String subtext;
@@ -181,24 +234,24 @@ class TextCheckboxContainer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 13),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                subtext,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
-              )
-            ]),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    subtext,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  )
+                ]),
           ),
           Container(
             child: Center(
@@ -225,6 +278,7 @@ class CircularIndicatorText extends StatelessWidget {
     this.size,
     required this.value,
   });
+
   final String text;
   final double? size;
   final String subText;

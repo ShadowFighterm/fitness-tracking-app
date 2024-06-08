@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+
 class CommunityPage extends StatefulWidget {
   @override
   _CommunityPageState createState() => _CommunityPageState();
@@ -24,10 +25,7 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Community'),
-        backgroundColor: Colors.black,
-      ),
+      backgroundColor: Colors.black,  // Ensure the background color matches the design
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -43,6 +41,7 @@ class _CommunityPageState extends State<CommunityPage> {
         currentIndex: _selectedIndex,
         selectedItemColor: mainColor,
         unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );

@@ -1,5 +1,4 @@
 
-import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';

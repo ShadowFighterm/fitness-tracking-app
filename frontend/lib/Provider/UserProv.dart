@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/config.dart';
 import 'package:http/http.dart' as http;

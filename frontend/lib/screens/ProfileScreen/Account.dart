@@ -24,10 +24,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   TextEditingController goalController = TextEditingController();
 
   @override
-  void UpdateUserInfo(String email, String name, double weight, int height, int age, String goal) async 
-  {
-
-  }
   void initState() {
     super.initState();
     // Set initial values to controllers
@@ -44,6 +40,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text('Account Information'),
+        foregroundColor: Colors.grey
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
