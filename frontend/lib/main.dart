@@ -32,7 +32,7 @@ class FitnessApp extends StatelessWidget {
         '/startup': (context) => const StartupScreen(),
         '/gender': (context) => const GenderScreen(),
         '/age': (context) => const AgeScreen(),
-        '/height': (context) => const HeightScreen(),
+        '/height': (context) => const HeightScreen(), //k
         '/weight': (context) => const WeightScreen(),
         '/activity': (context) => const ActivityScreen(),
         '/goal': (context) => const GoalScreen(),
