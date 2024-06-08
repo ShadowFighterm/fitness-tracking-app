@@ -70,4 +70,4 @@ class UserServices
         }
     }
 }
-module.exports = UserServices;
+module.exports = UserServices; // connections to exercise page  with backend 
