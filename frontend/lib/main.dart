@@ -36,7 +36,8 @@ class FitnessApp extends StatelessWidget {
         '/weight': (context) => const WeightScreen(),
         '/activity': (context) => const ActivityScreen(),
         '/goal': (context) => const GoalScreen(),
-        '/ForgotPassword': (context) => const ForgotPasswordScreen(),
+        '/ForgotPassword': (context) =>
+            const ForgotPasswordScreen(), //  abdullah
         '/login': (context) => const SignUp(),
         '/home': (context) => const HomePage(),
         '/notifications': (context) => const NotificationPage(),
