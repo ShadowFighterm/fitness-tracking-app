@@ -6,6 +6,10 @@ class WorkoutProgressServices {
         try {
             let existingProgress = await this.GetProgressByEmail(email);
 
+            date = new Date();
+            date = date.toISOString().slice(0, 10);
+            console.log(date);
+            
             if (existingProgress)
             {
                 const index = existingProgress.date.indexOf(date);

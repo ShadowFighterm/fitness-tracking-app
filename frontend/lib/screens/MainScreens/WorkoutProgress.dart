@@ -25,28 +25,24 @@ class _workoutProgressState extends State<workoutProgress> {
     return DateTime.now();
   }
 
-  void GetProgress ()async
-  {
-    await workoutProgressProv.GetProgress(userProv.email, CurrDate.toString().substring(0,10));
+  void GetProgress() async {
+    await workoutProgressProv.GetProgress(
+        userProv.email, CurrDate.toString().substring(0, 10));
   }
 
-  void ActivityPageCall()async
-  {
-   await Navigator.pushNamed(context, '/AddActivity');
-    setState(()
-    {
-     _selectedDateAppBBar = CurrDate;
+  void ActivityPageCall() async {
+    await Navigator.pushNamed(context, '/AddActivity');
+    setState(() {
+      _selectedDateAppBBar = CurrDate;
     });
   }
-  
-  @override
-  
 
-  void initState(){
+  @override
+  void initState() {
     super.initState();
     CurrDate = getToday();
     _selectedDateAppBBar = CurrDate;
-    workoutProgressProv.setDate(CurrDate.toString().substring(0,10));
+    workoutProgressProv.setDate(CurrDate.toString().substring(0, 10));
     print(workoutProgressProv.date);
   }
 
@@ -76,11 +72,12 @@ class _workoutProgressState extends State<workoutProgress> {
         onDateSelected: (date) async {
           CurrDate = date;
           print('Before call email:' + userProv.email);
-          await workoutProgressProv.GetProgress(userProv.email, CurrDate.toString().substring(0,10));
+          await workoutProgressProv.GetProgress(
+              userProv.email, CurrDate.toString().substring(0, 10));
           setState(() {
             _selectedDateAppBBar = CurrDate;
-            workoutProgressProv.setDate(CurrDate.toString().substring(0,10));
-            print(CurrDate.toString().substring(0,10));
+            workoutProgressProv.setDate(CurrDate.toString().substring(0, 10));
+            print(CurrDate.toString().substring(0, 10));
           });
         },
       ),
@@ -129,8 +126,8 @@ class _workoutProgressState extends State<workoutProgress> {
                       this.ActivityPageCall();
                     },
                     child: CircularIndicatorText(
-                      text: workoutProgressProv.time.toString() + "min",
-                      subText: 'Time',
+                      text: workoutProgressProv.time.toString(),
+                      subText: 'min',
                       color: Colors.blue,
                       strokeWidth: 7,
                       size: size.width * 0.26,
@@ -142,8 +139,8 @@ class _workoutProgressState extends State<workoutProgress> {
                       this.ActivityPageCall();
                     },
                     child: CircularIndicatorText(
-                      text: workoutProgressProv.heartRate.toString() + "bpm",
-                      subText: 'Heart',
+                      text: workoutProgressProv.heartRate.toString(),
+                      subText: 'bpm',
                       color: Colors.orange,
                       strokeWidth: 7,
                       size: size.width * 0.26,
@@ -211,7 +208,10 @@ class _workoutProgressState extends State<workoutProgress> {
 
 class TextCheckboxContainer extends StatelessWidget {
   const TextCheckboxContainer(
-      {super.key, required this.text, required this.subtext, required this.value});
+      {super.key,
+      required this.text,
+      required this.subtext,
+      required this.value});
 
   final String text;
   final String subtext;
