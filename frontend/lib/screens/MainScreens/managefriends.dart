@@ -21,11 +21,31 @@ class ManageFriend extends StatefulWidget {
 
 class _ManageFriendState extends State<ManageFriend> {
   List<Friend> friends = [
-    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 1',
+        streak: 5,
+        burnedCalories: 300,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 2',
+        streak: 10,
+        burnedCalories: 500,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 3',
+        streak: 3,
+        burnedCalories: 200,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 4',
+        streak: 7,
+        burnedCalories: 400,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 5',
+        streak: 15,
+        burnedCalories: 600,
+        imagePath: 'assets/profile.jpg'),
   ];
 
   TextEditingController _controller = TextEditingController();
@@ -38,7 +58,11 @@ class _ManageFriendState extends State<ManageFriend> {
 
   void addFriend(String name) {
     setState(() {
-      friends.add(Friend(name: name, streak: 0, burnedCalories: 0, imagePath: 'assets/default_friend.jpg'));
+      friends.add(Friend(
+          name: name,
+          streak: 0,
+          burnedCalories: 0,
+          imagePath: 'assets/default_friend.jpg'));
       _controller.clear(); // Clear the text field after adding friend
     });
   }
@@ -93,10 +117,10 @@ class _ManageFriendState extends State<ManageFriend> {
                           }
                         },
                         child: Text('Add Friend'),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
-                          foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                        ),
+                        // style: ButtonStyle(
+                        //   backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
+                        //   foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                        //),
                       ),
                     ],
                   ),
