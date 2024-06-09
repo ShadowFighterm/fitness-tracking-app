@@ -18,7 +18,7 @@ class UserServices
             console.log(err);
         }
     }
-    //write code for sum
+    //write code for sum??
 
     
     static async GetUserByMail(email)
