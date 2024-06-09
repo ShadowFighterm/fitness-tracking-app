@@ -4,24 +4,33 @@ import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/WorkoutProgress.dart';
-import 'package:db_final_project_fitness_app/screens/MainScreens/CommunityPage.dart'; // Import the Community page
+import 'package:db_final_project_fitness_app/screens/MainScreens/communitypage.dart';
 
 class HomepageNavbar extends StatefulWidget {
-  const HomepageNavbar({super.key});
+  final String currentUserId;
+
+  const HomepageNavbar({Key? key, required this.currentUserId}) : super(key: key);
 
   @override
-  State<HomepageNavbar> createState() => _HomepageNavbarState();
+  _HomepageNavbarState createState() => _HomepageNavbarState();
 }
 
 class _HomepageNavbarState extends State<HomepageNavbar> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    workoutProgress(),
-    NotificationPage(),
-    ProfilePage(),
-    CommunityPage(), // Add the Community page
-  ];
+
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+      HomePage(),
+      workoutProgress(),
+      NotificationPage(),
+      ProfilePage(),
+      CommunityPage(currentUserId: widget.currentUserId),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

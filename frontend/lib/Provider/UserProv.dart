@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class UserProvider extends ChangeNotifier 
 {
+  String _userId = '';
   String _name = '';
   String _gender = '';
   int _age = 0;
@@ -15,6 +16,7 @@ class UserProvider extends ChangeNotifier
   String _goal = '';
   String _email = '';
 
+  String get userId => _userId;
   String get name => _name;
   String get gender => _gender;
   int get age => _age;
@@ -24,6 +26,9 @@ class UserProvider extends ChangeNotifier
   String get goal => _goal;
   String get email => _email;
 
+  void setUserId(String userId) {
+    _userId = userId;
+  }
 
   void setName(String name)
   {

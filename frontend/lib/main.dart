@@ -15,10 +15,14 @@ import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Gender.dart
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Goal.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Height.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Weight.dart';
-
 import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/communitypage.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+
+import 'Provider/AuthProv.dart';
+import 'Provider/UserProv.dart';
 
 void main() {
   runApp(const FitnessApp());
@@ -26,36 +30,44 @@ void main() {
 
 class FitnessApp extends StatelessWidget {
   const FitnessApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      color: Colors.black,
-        routes: {
-
-      
-        '/startup': (context) => StartupScreen(),
-        '/gender': (context) => GenderScreen(),
-        '/age': (context) => AgeScreen(),
-        '/height': (context) => HeightScreen(),
-        '/weight': (context) => WeightScreen(),
-        '/activity': (context) => ActivityScreen(),
-        '/goal': (context) => GoalScreen(),
-        '/ForgotPassword': (context) => ForgotPasswordScreen(),
-        '/login': (context) => SignUp(),
-        '/home': (context) => HomePage(),
-        '/notifications': (context) => NotificationPage(),
-        '/WorkoutCategories': (context) => WorkoutCategories(),
-        '/NavigationBar': (context) => HomepageNavbar(),
-        '/manageFriends': (context) => ManageFriend(),             
-        '/leaderboard':(context)=>LeaderBoardPage(),
-        '/profile': (context) => ProfilePage(),
-        '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
-        '/settings': (context) => SettingsPage(),
-        '/account': (context) => AccountInfoPage(),
-        
-      },
-      debugShowCheckedModeBanner: false,
-      home: StartupScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider(context.read<UserProvider>())),
+      ],
+      child: Consumer<AuthProvider>(
+        builder: (context, authProvider, child) {
+          return MaterialApp(
+            color: Colors.black,
+            routes: {
+              '/startup': (context) => StartupScreen(),
+              '/gender': (context) => GenderScreen(),
+              '/age': (context) => AgeScreen(),
+              '/height': (context) => HeightScreen(),
+              '/weight': (context) => WeightScreen(),
+              '/activity': (context) => ActivityScreen(),
+              '/goal': (context) => GoalScreen(),
+              '/ForgotPassword': (context) => ForgotPasswordScreen(),
+              '/login': (context) => SignUp(),
+              '/home': (context) => HomePage(),
+              '/notifications': (context) => NotificationPage(),
+              '/WorkoutCategories': (context) => WorkoutCategories(),
+              '/NavigationBar': (context) => HomepageNavbar(currentUserId: authProvider.userId ?? ''),
+              '/manageFriends': (context) => ManageFriend(currentUserId: authProvider.userId ?? ''),
+              '/leaderboard': (context) => LeaderBoardPage(),
+              '/profile': (context) => ProfilePage(),
+              '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
+              '/settings': (context) => SettingsPage(),
+              '/account': (context) => AccountInfoPage(),
+              '/community': (context) => CommunityPage(currentUserId: authProvider.userId ?? ''),
+            },
+            initialRoute: '/startup',
+          );
+        },
+      ),
     );
   }
 }

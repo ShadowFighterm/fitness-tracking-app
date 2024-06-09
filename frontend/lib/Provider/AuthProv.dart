@@ -1,21 +1,17 @@
 import 'dart:convert';
-import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:http/http.dart' as http;
-
 import '../config.dart';
 
-
-
-class AuthProvider extends ChangeNotifier
-{
+class AuthProvider extends ChangeNotifier {
   final UserProvider userProvider;
+  String? userId; // Add a field to store the user ID
+
   AuthProvider(this.userProvider);
-  
-  static Future<String?> loginUser(String email, String password) async {
-    try 
-    {
+
+  Future<String?> loginUser(String email, String password) async {
+    try {
       var reqBody = {"email": email, "password": password};
 
       var response = await http.post(
@@ -24,73 +20,75 @@ class AuthProvider extends ChangeNotifier
         body: jsonEncode(reqBody),
       );
 
-      if (response.statusCode == 200)
-      {
+      if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['message'] == 'User logged in successfully') {
           print('Login successful');
-          userProv.LoadUserInfo(jsonResponse);
+          userProvider.LoadUserInfo(jsonResponse);
+          userId = jsonResponse['_id']; // Set userId here
+          notifyListeners();
           return jsonResponse['token'];
         } else {
           print('Authentication failed: ${jsonResponse['message']}');
           return null;
         }
-      } 
-      else 
-      {
+      } else {
         print('Server error: ${response.statusCode}');
         print('Server error: ${response.body}');
         return null;
       }
-    } 
-    catch (e) 
-    {
+    } catch (e) {
       print('Error logging in: $e');
       return null;
     }
   }
-  static Future<String?> registerUser(String name, String email, String password,
-  int age, String gender, int height, double weight, String goal,
-  String activity) async
-  {
-    try
-    {
-      var reqBody = {"name": name, "email": email, "password": password,
-      "age": age, "gender": gender, "height": height, "weight": weight,
-      "goal": goal, "activity": activity};
+
+  Future<String?> registerUser(
+      String name,
+      String email,
+      String password,
+      int age,
+      String gender,
+      int height,
+      double weight,
+      String goal,
+      String activity) async {
+    try {
+      var reqBody = {
+        "name": name,
+        "email": email,
+        "password": password,
+        "age": age,
+        "gender": gender,
+        "height": height,
+        "weight": weight,
+        "goal": goal,
+        "activity": activity
+      };
 
       var response = await http.post(
         Uri.parse(register),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody),
-      );//.timeout(const Duration(seconds: 10));
-      
-      if(response.statusCode == 400 || response.statusCode == 200)
-      {
+      ); //.timeout(const Duration(seconds: 10));
+
+      if (response.statusCode == 400 || response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        if(jsonResponse['status'] == 'Success')
-        {
+        if (jsonResponse['status'] == 'Success') {
           print('Registered successfully');
           return 'success';
-        }
-        else
-        {
+        } else {
           print('User already exists!');
           return "exists";
         }
-      }
-      else
-      {
+      } else {
         print(response.statusCode);
         print('Server error');
         return null;
       }
-    }
-    catch(e)
-    {
+    } catch (e) {
       print("Error registered in: $e");
       return null;
     }
   }
-  
 }

@@ -39,7 +39,7 @@ dependencies:
   calendar_slider: ^0.0.4
   provider: ^6.1.1
   image_picker: ^1.1.1
-  http:
+  http: 
 
 dev_dependencies:
   flutter_test:

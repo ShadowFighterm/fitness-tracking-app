@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Friend {
+  final String id;
   final String name;
   final int streak;
   final int burnedCalories;
   final String imagePath;
 
   Friend({
+    required this.id,
     required this.name,
     required this.streak,
     required this.burnedCalories,
@@ -15,22 +19,102 @@ class Friend {
 }
 
 class ManageFriend extends StatefulWidget {
+ final String currentUserId;
+
+  const ManageFriend({Key? key, required this.currentUserId}) : super(key: key);
+
   @override
   _FriendPageState createState() => _FriendPageState();
 }
 
 class _FriendPageState extends State<ManageFriend> {
   List<Friend> friends = [
-    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
+    Friend(id: '1', name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
+    Friend(id: '2', name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
+    Friend(id: '3', name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
+    Friend(id: '4', name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
+    Friend(id: '5', name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
   ];
 
   TextEditingController _controller = TextEditingController();
 
-  void removeFriend(int index) {
+  Future<void> sendFriendRequest(String toUserId) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:4000/api/community/sendFriendRequest'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'fromUserId': widget.currentUserId,
+        'toUserId': toUserId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Friend request sent.');
+    } else {
+      print('Failed to send friend request.');
+    }
+  }
+
+  Future<void> acceptFriendRequest(String fromUserId) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:4000/api/community/acceptFriendRequest'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'fromUserId': fromUserId,
+        'toUserId': widget.currentUserId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Friend request accepted.');
+    } else {
+      print('Failed to accept friend request.');
+    }
+  }
+
+  Future<void> declineFriendRequest(String fromUserId) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:4000/api/community/declineFriendRequest'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'fromUserId': fromUserId,
+        'toUserId': widget.currentUserId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Friend request declined.');
+    } else {
+      print('Failed to decline friend request.');
+    }
+  }
+
+  Future<void> removeFriendFromBackend(String friendId) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:4000/api/community/removeFriend'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'userId1': widget.currentUserId,
+        'userId2': friendId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Friend removed.');
+    } else {
+      print('Failed to remove friend.');
+    }
+  }
+
+  void removeFriendLocally(int index) {
     setState(() {
       friends.removeAt(index);
     });
@@ -38,7 +122,7 @@ class _FriendPageState extends State<ManageFriend> {
 
   void addFriend(String name) {
     setState(() {
-      friends.add(Friend(name: name, streak: 0, burnedCalories: 0, imagePath: 'assets/default_friend.jpg'));
+      friends.add(Friend(id: DateTime.now().toString(), name: name, streak: 0, burnedCalories: 0, imagePath: 'assets/default_friend.jpg'));
       _controller.clear(); // Clear the text field after adding friend
     });
   }
@@ -164,12 +248,12 @@ class _FriendPageState extends State<ManageFriend> {
                               ),
                             ],
                           ),  
-                         SizedBox(width: 30),
-
-                            IconButton(
+                          SizedBox(width: 30),
+                          IconButton(
                             icon: Icon(Icons.remove_circle, color: Colors.red),
                             onPressed: () {
-                              removeFriend(index);
+                              removeFriendLocally(index);
+                              removeFriendFromBackend(friend.id);
                             },
                           ),
                         ],

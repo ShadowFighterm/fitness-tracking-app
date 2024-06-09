@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+
 class CommunityPage extends StatefulWidget {
+  final String currentUserId;
+
+  const CommunityPage({Key? key, required this.currentUserId}) : super(key: key);
+
   @override
   _CommunityPageState createState() => _CommunityPageState();
 }
 
 class _CommunityPageState extends State<CommunityPage> {
   int _selectedIndex = 0;
+  late List<Widget> _pages;
 
-  static List<Widget> _pages = <Widget>[
-    LeaderBoardPage(),
-    ManageFriend(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _pages = <Widget>[
+      LeaderBoardPage(),
+      ManageFriend(currentUserId: widget.currentUserId),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

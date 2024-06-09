@@ -1,10 +1,15 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const UserRoutes = require('./routes/User');
+const communityRoutes = require('./routes/community');
+
 const app = express();
 
-const UserRoutes = require('./routes/User');
-const BodyParser = require('body-parser');
+// Middleware
+app.use(bodyParser.json());
 
-app.use(BodyParser.json());
-app.use('/', UserRoutes);
+// Routes
+app.use('/api/user', UserRoutes);
+app.use('/api/community', communityRoutes);
 
 module.exports = app;

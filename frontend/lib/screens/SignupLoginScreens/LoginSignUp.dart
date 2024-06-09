@@ -1,64 +1,64 @@
-import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
+
 import 'package:db_final_project_fitness_app/Provider/userprov.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
-import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
 import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:db_final_project_fitness_app/Provider/AuthProv.dart';
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
-class  _SignUpState extends State<SignUp> {
- late PageController _pageController;
+
+class _SignUpState extends State<SignUp> {
+  late PageController _pageController;
   bool isLoginSelected = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   bool _isNotValidate = false;
 
-    void registerUser() async
-    {
-      if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-      {
-        userProv.setName(_nameController.text);
-        userProv.setEmail(_emailController.text);
-        var res = await AuthProvider.registerUser(
-          userProv.name,
-          _emailController.text, _passwordController.text, 
-          userProv.age, userProv.gender, userProv.height, 
-          userProv.weight, userProv.goal, userProv.activityLevel);
-        if(res == "success")
-        {
-          _pageController.animateToPage(
-                      0,
-                      duration: const Duration(milliseconds: 5),
-                      curve: Curves.easeInOut,
-                    );
-        }
+  void registerUser(AuthProvider authProvider, UserProvider userProvider) async {
+    if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      userProvider.setName(_nameController.text);
+      userProvider.setEmail(_emailController.text);
+      var res = await authProvider.registerUser(
+        userProvider.name,
+        _emailController.text,
+        _passwordController.text,
+        userProvider.age,
+        userProvider.gender,
+        userProvider.height,
+        userProvider.weight,
+        userProvider.goal,
+        userProvider.activityLevel,
+      );
+      if (res == "success") {
+        _pageController.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 5),
+          curve: Curves.easeInOut,
+        );
       }
-      else
-      {
-        setState(() {
-          _isNotValidate = true;
-        });
-      }
-        
+    } else {
+      setState(() {
+        _isNotValidate = true;
+      });
     }
-    void loginUser() async
-    {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      var token = await AuthProvider.loginUser(
-          _emailController.text, _passwordController.text);
+  }
+
+  void loginUser(AuthProvider authProvider, UserProvider userProvider) async {
+    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      var token = await authProvider.loginUser(
+        _emailController.text,
+        _passwordController.text,
+      );
       if (token != null) {
         print('Login successful');
         Navigator.pop(context);
-        Navigator.pushNamed(context,'/NavigationBar');
+        Navigator.pushNamed(context, '/NavigationBar');
       } else {
         print('Login failed');
       }
@@ -68,16 +68,22 @@ class  _SignUpState extends State<SignUp> {
       });
     }
   }
+
   @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: 0);
+  void dispose() {
+    _pageController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+    final userProvider = Provider.of<UserProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -165,7 +171,6 @@ class  _SignUpState extends State<SignUp> {
                   ),
                 ),
                 const Expanded(child: SizedBox.shrink()),
-                //CircleAvatar  
                 isLoginSelected
                     ? const CircleAvatar(
                         radius: 25,
@@ -208,7 +213,6 @@ class  _SignUpState extends State<SignUp> {
                 },
                 children: [
                   // Login Page
-                  
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -324,11 +328,7 @@ class  _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
-                                onPressed: ()
-                                {
-                                  // _login();
-                                  loginUser();
-                                },
+                                onPressed: () => loginUser(authProvider, userProvider),
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -355,10 +355,7 @@ class  _SignUpState extends State<SignUp> {
                       ],
                     ),
                   ),
-
-                  // Sigtopn up Page
-                  //Name
-
+                  // Sign up Page
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -476,17 +473,7 @@ class  _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: TextButton(
-                                onPressed: ()
-                                {
-                                  registerUser();
-                                  print(userProv.name);
-                                  print(userProv.gender);
-                                  print(userProv.age);
-                                  print(userProv.height);
-                                  print(userProv.weight);
-                                  print(userProv.activityLevel);
-                                  print(userProv.goal);
-                                },
+                                onPressed: () => registerUser(authProvider, userProvider),
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -521,12 +508,4 @@ class  _SignUpState extends State<SignUp> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-} 
+}
