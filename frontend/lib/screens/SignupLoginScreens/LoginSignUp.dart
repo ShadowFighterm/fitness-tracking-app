@@ -53,6 +53,7 @@ class _SignUpState extends State<SignUp> {
       if (token != null) {
         print('Login successful');
         await workoutProgressProv.GetProgress(userProv.email, DateTime.now().toString().substring(0,10));
+        await userProv.GetFriends();
         Navigator.pop(context);
         Navigator.pushNamed(context, '/NavigationBar');
       } else {

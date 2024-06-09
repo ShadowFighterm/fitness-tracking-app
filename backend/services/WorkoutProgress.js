@@ -62,6 +62,7 @@ class WorkoutProgressServices {
             throw err;
         }
     }
+
 }
 
 module.exports = WorkoutProgressServices;

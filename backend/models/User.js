@@ -55,11 +55,12 @@ const UserSchema = new Schema
         type: String,
         required: [true, 'Activity Level is required']
     },
-    // date:
-    // {
-    //     type: Date,
-    //     rrequired: [true, 'Join Date is required']
-    // }
+    friends:
+    {
+        type: Array,
+        required: false
+    }
+
 }, {timestamps: true});
 
 UserSchema.pre('save', async function()
