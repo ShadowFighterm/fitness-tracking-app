@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Home Page',
+          'Workout',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -36,13 +36,14 @@ class _HomePageState extends State<HomePage> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [mainColor, Colors.white],
+              colors: [mainColor, mainColor, Colors.black],
+              stops: [0, 0.40, 1],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
         ),
-        elevation: 10,
+        elevation:10,
         shadowColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.transparent,

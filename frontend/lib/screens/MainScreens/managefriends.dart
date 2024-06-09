@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:flutter/material.dart';
 
 class Friend {
@@ -147,10 +148,10 @@ class _ManageFriendState extends State<ManageFriend> {
                           }
                         },
                         child: Text('Add Friend'),
-                        // style: ButtonStyle(
-                        //   backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
-                        //   foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                        //),
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(mainColor),
+                          foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                        ),
                       ),
                     ],
                   ),
