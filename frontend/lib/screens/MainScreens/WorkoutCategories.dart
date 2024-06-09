@@ -1,5 +1,3 @@
-
-
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/constants/Padding.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
@@ -37,39 +35,45 @@ class _WorkoutCategoriesState extends State<WorkoutCategories> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                ToggleButtons(
-                  isSelected: List.generate(workoutCategories.length,
-                      (index) => index == selectedCategory),
-                  onPressed: (int index) {
-                    setState(() {
-                      selectedCategory = index;
-                    });
-                  },
-                  children: workoutCategories.map((category) {
-                    return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: selectedCategory ==
-                                  workoutCategories.indexOf(category)
-                              ? mainColor
-                              : Colors.black,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: selectedCategory ==
-                                        workoutCategories.indexOf(category)
-                                    ? Colors.black
-                                    : Colors.white,
+                Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ToggleButtons(
+                      isSelected: List.generate(workoutCategories.length,
+                          (index) => index == selectedCategory),
+                      onPressed: (int index) {
+                        setState(() {
+                          selectedCategory = index;
+                        });
+                      },
+                      children: workoutCategories.map((category) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: selectedCategory ==
+                                    workoutCategories.indexOf(category)
+                                ? mainColor
+                                : Colors.black,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              padding: const EdgeInsets.all(6),
+                              child: Text(
+                                category,
+                                style: TextStyle(
+                                  color: selectedCategory ==
+                                          workoutCategories.indexOf(category)
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ));
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,

@@ -24,6 +24,19 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
   final TextEditingController jumpingRopeController = TextEditingController();
   final TextEditingController aerobicsController = TextEditingController();
 
+  void initState() {
+    super.initState();
+    // Set initial values to controllers
+    runningController.text = workoutProgressProv.running.toString();
+    cyclingController.text = workoutProgressProv.cycling.toString();
+    swimmingController.text = workoutProgressProv.swimming.toString();
+    walkingController.text = workoutProgressProv.walking.toString();
+    weightliftingController.text = workoutProgressProv.weightlifting.toString();
+    yogaController.text = workoutProgressProv.yoga.toString();
+    jumpingRopeController.text = workoutProgressProv.jumpingRope.toString();
+    aerobicsController.text = workoutProgressProv.jumpingRope.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +87,16 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                   int aerobics = int.parse(aerobicsController.text.isEmpty
                       ? '0'
                       : aerobicsController.text);
+
+                  workoutProgressProv.setrunning(running);
+                  workoutProgressProv.setcycling(cycling);
+                  workoutProgressProv.setaerobics(aerobics);
+                  workoutProgressProv.setjumpingRope(jumpingRope);
+                  workoutProgressProv.setswimming(swimming);
+                  workoutProgressProv.setwalking(walking);
+                  workoutProgressProv.setweightlifting(weightlifting);
+                  workoutProgressProv.setyoga(yoga);
+
                   int total = running +
                       cycling +
                       swimming +
@@ -92,6 +115,8 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
 
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/NavigationBar');
+                  await workoutProgressProv.GetProgress(userProv.email,
+                      DateTime.now().toString().substring(0, 10));
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),

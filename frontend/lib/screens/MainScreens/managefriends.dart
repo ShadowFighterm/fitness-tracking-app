@@ -59,10 +59,11 @@ class _ManageFriendState extends State<ManageFriend> {
   void addFriend(String name) {
     setState(() {
       friends.add(Friend(
-          name: name,
-          streak: 0,
-          burnedCalories: 0,
-          imagePath: 'assets/default_friend.jpg'));
+        name: name,
+        streak: 0,
+        burnedCalories: 0,
+        imagePath: 'assets/images/prfile.jpg',
+      ));
       _controller.clear(); // Clear the text field after adding friend
     });
   }
@@ -117,12 +118,6 @@ class _ManageFriendState extends State<ManageFriend> {
                           }
                         },
                         child: Text('Add Friend'),
-                        style: ButtonStyle(
-                            //backgroundColor:
-                            // WidgetStateProperty.all<Color>(Colors.green),
-                            //foregroundColor:
-                            // WidgetStateProperty.all<Color>(Colors.black),
-                            ),
                       ),
                     ],
                   ),
@@ -139,41 +134,42 @@ class _ManageFriendState extends State<ManageFriend> {
                         color: Color(0xFF2c2c2e), // Friend box color #2c2c2e
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(width: 10),
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: AssetImage(friend.imagePath),
                           ),
                           SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                friend.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  friend.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "Streak: ${friend.streak}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                SizedBox(height: 5),
+                                Text(
+                                  "Streak: ${friend.streak}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Burned Calories: ${friend.burnedCalories}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                Text(
+                                  "Burned Calories: ${friend.burnedCalories}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           IconButton(
                             icon: Icon(Icons.remove_circle, color: Colors.red),

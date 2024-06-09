@@ -24,25 +24,28 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,  // Ensure the background color matches the design
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard),
-            label: 'Leaderboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Friends',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: mainColor,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.black,
-        onTap: _onItemTapped,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor:
+            Colors.black, // Ensure the background color matches the design
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard),
+              label: 'Leaderboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: 'Friends',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: mainColor,
+          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.black,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

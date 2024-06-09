@@ -16,11 +16,31 @@ class Friend {
 
 class LeaderBoardPage extends StatelessWidget {
   final List<Friend> friends = [
-    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
-    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 1',
+        streak: 5,
+        burnedCalories: 300,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 2',
+        streak: 10,
+        burnedCalories: 500,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 3',
+        streak: 3,
+        burnedCalories: 200,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 4',
+        streak: 7,
+        burnedCalories: 400,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 5',
+        streak: 15,
+        burnedCalories: 600,
+        imagePath: 'assets/profile.jpg'),
   ];
 
   @override
@@ -76,40 +96,45 @@ class LeaderBoardPage extends StatelessWidget {
                             backgroundImage: AssetImage(friend.imagePath),
                           ),
                           SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                friend.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  friend.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Streak: ${friend.streak}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                Text(
+                                  "Streak: ${friend.streak}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Burned Calories: ${friend.burnedCalories}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                Text(
+                                  "Burned Calories: ${friend.burnedCalories}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           if (index == 0 || index == 1 || index == 2) ...[
                             Icon(
                               Icons.emoji_events,
-                              color: index == 0 ? Colors.amber : index == 1 ? Colors.grey : Colors.brown,
-                              size: 50,
+                              color: index == 0
+                                  ? Colors.amber
+                                  : index == 1
+                                      ? Colors.grey
+                                      : Colors.brown,
+                              size: 30,
                             ),
-                            SizedBox(width: 10),
                           ],
                         ],
                       ),
