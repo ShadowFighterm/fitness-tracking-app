@@ -23,6 +23,7 @@ import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dar
 import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(const FitnessApp());
 }
@@ -42,6 +43,7 @@ class FitnessApp extends StatelessWidget {
         '/activity': (context) => ActivityScreen(),
         '/goal': (context) => GoalScreen(),
         '/ForgotPassword': (context) => ForgotPasswordScreen(),
+        '/ForgotPassword': (context) => ForgotPasswordScreen(),
         '/login': (context) => SignUp(),
         '/home': (context) => HomePage(),
         '/notifications': (context) => NotificationPage(),
@@ -50,6 +52,7 @@ class FitnessApp extends StatelessWidget {
         '/manageFriends': (context) => ManageFriend(),
         '/leaderboard': (context) => LeaderBoardPage(),
         '/profile': (context) => ProfilePage(),
+        '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
         '/settings': (context) => SettingsPage(),
         '/account': (context) => AccountInfoPage(),
