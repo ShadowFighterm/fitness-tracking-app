@@ -6,12 +6,16 @@ import 'package:http/http.dart' as http;
 
 import '../config.dart';
 
-class AuthProvider extends ChangeNotifier {
+
+
+class AuthProvider extends ChangeNotifier
+{
   final UserProvider userProvider;
   AuthProvider(this.userProvider);
-
+  
   static Future<String?> loginUser(String email, String password) async {
-    try {
+    try 
+    {
       var reqBody = {"email": email, "password": password};
 
       var response = await http.post(
@@ -20,7 +24,8 @@ class AuthProvider extends ChangeNotifier {
         body: jsonEncode(reqBody),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200)
+      {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['message'] == 'User logged in successfully') {
           print('Login successful');
@@ -30,114 +35,62 @@ class AuthProvider extends ChangeNotifier {
           print('Authentication failed: ${jsonResponse['message']}');
           return null;
         }
-      } else {
+      } 
+      else 
+      {
         print('Server error: ${response.statusCode}');
         print('Server error: ${response.body}');
         return null;
       }
-    } catch (e) {
+    } 
+    catch (e) 
+    {
       print('Error logging in: $e');
       return null;
     }
   }
-
-  static Future<String?> registerUser(
-      String name,
-      String email,
-      String password,
-      int age,
-      String gender,
-      int height,
-      double weight,
-      String goal,
-      String activity) async {
-    try {
-      var reqBody = {
-        "name": name,
-        "email": email,
-        "password": password,
-        "age": age,
-        "gender": gender,
-        "height": height,
-        "weight": weight,
-        "goal": goal,
-        "activity": activity
-      };
+  static Future<String?> registerUser(String name, String email, String password,
+  int age, String gender, int height, double weight, String goal,
+  String activity) async
+  {
+    try
+    {
+      var reqBody = {"name": name, "email": email, "password": password,
+      "age": age, "gender": gender, "height": height, "weight": weight,
+      "goal": goal, "activity": activity};
 
       var response = await http.post(
         Uri.parse(register),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody),
-      ); //.timeout(const Duration(seconds: 10));
-
-      if (response.statusCode == 400 || response.statusCode == 200) {
+      );//.timeout(const Duration(seconds: 10));
+      
+      if(response.statusCode == 400 || response.statusCode == 200)
+      {
         var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['status'] == 'Success') {
+        if(jsonResponse['status'] == 'Success')
+        {
           print('Registered successfully');
           return 'success';
-        } else {
+        }
+        else
+        {
           print('User already exists!');
           return "exists";
         }
-      } else {
+      }
+      else
+      {
         print(response.statusCode);
         print('Server error');
         return null;
       }
-    } catch (e) {
+    }
+    catch(e)
+    {
       print("Error registered in: $e");
       return null;
     }
   }
-
-  static Future<String?> updateWorkout(
-      String email,
-      int running,
-      int cycling,
-      int swimming,
-      int walking,
-      int weightlifting,
-      int yoga,
-      int jumpingRope,
-      int aerobics) async {
-    try {
-      var reqBody = {
-        "email": email,
-        "exercises": {
-          "running": running,
-          "cycling": cycling,
-          "swimming": swimming,
-          "walking": walking,
-          "weightlifting": weightlifting,
-          "yoga": yoga,
-          "jumpingRope": jumpingRope,
-          "aerobics": aerobics
-        }
-      };
-
-      var response = await http.post(
-        Uri.parse(updateworkout), // Update this with your actual backend URL
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(reqBody),
-      );
-
-      if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['status'] == 'Success') {
-          print('Workout updated successfully');
-          return 'success';
-        } else {
-          print('Error updating workout');
-          return 'error';
-        }
-      } else {
-        print(response.statusCode);
-        print('Server error');
-        return null;
-      }
-    } catch (e) {
-      print("Error updating workout: $e");
-      return null;
-    }
-  }
+  
 }

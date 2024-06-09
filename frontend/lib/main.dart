@@ -1,6 +1,8 @@
 import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/NavigationBar.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/WorkoutProgress.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/AddActivity.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/workoutCategories.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Account.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/PrivacyPolicy.dart';
@@ -16,6 +18,9 @@ import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Gender.dart
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Goal.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Height.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Weight.dart';
+
+import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,28 +34,30 @@ class FitnessApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       routes: {
-        '/startup': (context) => const StartupScreen(),
-        '/gender': (context) => const GenderScreen(),
-        '/age': (context) => const AgeScreen(),
-        '/height': (context) => const HeightScreen(),
-        '/weight': (context) => const WeightScreen(),
-        '/activity': (context) => const ActivityScreen(),
-        '/goal': (context) => const GoalScreen(),
-        '/ForgotPassword': (context) =>
-            const ForgotPasswordScreen(), //  abdullah
-        '/login': (context) => const SignUp(),
-        '/home': (context) => const HomePage(),
-        '/notifications': (context) => const NotificationPage(),
-        '/WorkoutCategories': (context) => const WorkoutCategories(),
-        '/NavigationBar': (context) => const HomepageNavbar(),
-        '/profile': (context) => const ProfilePage(),
+        '/startup': (context) => StartupScreen(),
+        '/gender': (context) => GenderScreen(),
+        '/age': (context) => AgeScreen(),
+        '/height': (context) => HeightScreen(),
+        '/weight': (context) => WeightScreen(),
+        '/activity': (context) => ActivityScreen(),
+        '/goal': (context) => GoalScreen(),
+        '/ForgotPassword': (context) => ForgotPasswordScreen(),
+        '/login': (context) => SignUp(),
+        '/home': (context) => HomePage(),
+        '/notifications': (context) => NotificationPage(),
+        '/WorkoutCategories': (context) => WorkoutCategories(),
+        '/NavigationBar': (context) => HomepageNavbar(),
+        '/manageFriends': (context) => ManageFriend(),
+        '/leaderboard': (context) => LeaderBoardPage(),
+        '/profile': (context) => ProfilePage(),
         '/PrivacyPolicy': (context) => PrivacyPolicyPage(),
-        '/settings': (context) => const SettingsPage(),
-        '/account': (context) => const AccountInfoPage(),
+        '/settings': (context) => SettingsPage(),
+        '/account': (context) => AccountInfoPage(),
+        '/AddActivity': (context) => AddActivityPage(),
         '/workoutinput': (context) => const ExerciseInputPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: const SignUp(),
+      home: SignUp(),
     );
   }
 }

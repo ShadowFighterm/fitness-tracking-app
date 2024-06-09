@@ -16,31 +16,11 @@ class Friend {
 
 class LeaderBoardPage extends StatelessWidget {
   final List<Friend> friends = [
-    Friend(
-        name: 'Friend 1',
-        streak: 5,
-        burnedCalories: 300,
-        imagePath: 'assets/friend1.jpg'),
-    Friend(
-        name: 'Friend 2',
-        streak: 10,
-        burnedCalories: 500,
-        imagePath: 'assets/friend2.jpg'),
-    Friend(
-        name: 'Friend 3',
-        streak: 3,
-        burnedCalories: 200,
-        imagePath: 'assets/friend3.jpg'),
-    Friend(
-        name: 'Friend 4',
-        streak: 7,
-        burnedCalories: 400,
-        imagePath: 'assets/friend4.jpg'),
-    Friend(
-        name: 'Friend 5',
-        streak: 15,
-        burnedCalories: 600,
-        imagePath: 'assets/friend5.jpg'),
+    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/profile.jpg'),
+    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/profile.jpg'),
   ];
 
   @override
@@ -56,37 +36,18 @@ class LeaderBoardPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors
-                            .grey.shade800, // Background color of the circle
-                        shape: BoxShape.circle, // Makes the container round
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.white),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      "Leaderboard",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          child: Text(
-                            "Leaderboard",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 Column(
                   children: friends.take(5).map((friend) {
@@ -145,11 +106,7 @@ class LeaderBoardPage extends StatelessWidget {
                           if (index == 0 || index == 1 || index == 2) ...[
                             Icon(
                               Icons.emoji_events,
-                              color: index == 0
-                                  ? Colors.amber
-                                  : index == 1
-                                      ? Colors.grey
-                                      : Colors.brown,
+                              color: index == 0 ? Colors.amber : index == 1 ? Colors.grey : Colors.brown,
                               size: 50,
                             ),
                             SizedBox(width: 10),

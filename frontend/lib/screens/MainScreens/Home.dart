@@ -17,10 +17,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Home Page',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, '/workoutinput');
+            },
+          ),
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [mainColor, Colors.white],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        elevation: 10,
+        shadowColor: Colors.black.withOpacity(0.5),
+      ),
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: size.height * 0.00),
+          padding: EdgeInsets.only(top: size.height * 0),
           child: Container(
             padding: AppPadding.horizontalPadding(context),
             child: Column(
@@ -36,14 +64,6 @@ class _HomePageState extends State<HomePage> {
                         fontSize: size.width * 0.1,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        // Handle the button tap here
-                        Navigator.pushNamed(context, '/workoutinput');
-                      },
-                      icon: Icon(Icons.add),
-                      label: Text('Add Workout'),
                     ),
                   ],
                 ),
@@ -129,39 +149,45 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                ToggleButtons(
-                  isSelected: List.generate(workoutCategories.length,
-                      (index) => index == selectedCategory),
-                  onPressed: (int index) {
-                    setState(() {
-                      selectedCategory = index;
-                    });
-                  },
-                  children: workoutCategories.map((category) {
-                    return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: selectedCategory ==
-                                  workoutCategories.indexOf(category)
-                              ? mainColor
-                              : Colors.black,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: selectedCategory ==
-                                        workoutCategories.indexOf(category)
-                                    ? Colors.black
-                                    : Colors.white,
+                Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ToggleButtons(
+                      isSelected: List.generate(workoutCategories.length,
+                          (index) => index == selectedCategory),
+                      onPressed: (int index) {
+                        setState(() {
+                          selectedCategory = index;
+                        });
+                      },
+                      children: workoutCategories.map((category) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: selectedCategory ==
+                                    workoutCategories.indexOf(category)
+                                ? mainColor
+                                : Colors.black,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              padding: const EdgeInsets.all(6),
+                              child: Text(
+                                category,
+                                style: TextStyle(
+                                  color: selectedCategory ==
+                                          workoutCategories.indexOf(category)
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ));
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,

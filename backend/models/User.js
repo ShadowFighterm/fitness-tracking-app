@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose; 
-
 const UserSchema = new Schema
 ({
     name: 
@@ -18,7 +17,7 @@ const UserSchema = new Schema
         require: [true, 'Email is required'],
         unique: true,
         lowercase: true,
-        //match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Please type a valid email address'],
+        match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Please type a valid email address'],
     }, 
     password: 
     { 
@@ -56,16 +55,11 @@ const UserSchema = new Schema
         type: String,
         required: [true, 'Activity Level is required']
     },
-    date:[Date.now.date,{ type: Date, default: Date.now.date }],
-    calories: [{ type: Number, default:0}],
-    running:{type: Number,default:0},
-    cycling:{type: Number,default:0},
-    swimming:{type: Number,default:0},
-    walking:{type: Number,default:0},
-    weightlifting:{type: Number,default:0},
-    yoga:{type: Number,default:0},
-    jumpingRope:{type: Number,default:0},
-    aerobics:{type: Number,default:0},
+    // date:
+    // {
+    //     type: Date,
+    //     rrequired: [true, 'Join Date is required']
+    // }
 }, {timestamps: true});
 
 UserSchema.pre('save', async function()

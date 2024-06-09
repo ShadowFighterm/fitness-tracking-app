@@ -16,16 +16,36 @@ class Friend {
 
 class ManageFriend extends StatefulWidget {
   @override
-  _FriendPageState createState() => _FriendPageState();
+  _ManageFriendState createState() => _ManageFriendState();
 }
 
-class _FriendPageState extends State<ManageFriend> {
+class _ManageFriendState extends State<ManageFriend> {
   List<Friend> friends = [
-    Friend(name: 'Friend 1', streak: 5, burnedCalories: 300, imagePath: 'assets/friend1.jpg'),
-    Friend(name: 'Friend 2', streak: 10, burnedCalories: 500, imagePath: 'assets/friend2.jpg'),
-    Friend(name: 'Friend 3', streak: 3, burnedCalories: 200, imagePath: 'assets/friend3.jpg'),
-    Friend(name: 'Friend 4', streak: 7, burnedCalories: 400, imagePath: 'assets/friend4.jpg'),
-    Friend(name: 'Friend 5', streak: 15, burnedCalories: 600, imagePath: 'assets/friend5.jpg'),
+    Friend(
+        name: 'Friend 1',
+        streak: 5,
+        burnedCalories: 300,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 2',
+        streak: 10,
+        burnedCalories: 500,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 3',
+        streak: 3,
+        burnedCalories: 200,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 4',
+        streak: 7,
+        burnedCalories: 400,
+        imagePath: 'assets/profile.jpg'),
+    Friend(
+        name: 'Friend 5',
+        streak: 15,
+        burnedCalories: 600,
+        imagePath: 'assets/profile.jpg'),
   ];
 
   TextEditingController _controller = TextEditingController();
@@ -38,7 +58,11 @@ class _FriendPageState extends State<ManageFriend> {
 
   void addFriend(String name) {
     setState(() {
-      friends.add(Friend(name: name, streak: 0, burnedCalories: 0, imagePath: 'assets/default_friend.jpg'));
+      friends.add(Friend(
+          name: name,
+          streak: 0,
+          burnedCalories: 0,
+          imagePath: 'assets/default_friend.jpg'));
       _controller.clear(); // Clear the text field after adding friend
     });
   }
@@ -54,36 +78,18 @@ class _FriendPageState extends State<ManageFriend> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade800, // Background color of the circle
-                        shape: BoxShape.circle,       // Makes the container round
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.white),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      "Friend Community",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
-                          child: Text(
-                            "Friend Community",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -111,6 +117,12 @@ class _FriendPageState extends State<ManageFriend> {
                           }
                         },
                         child: Text('Add Friend'),
+                        style: ButtonStyle(
+                            //backgroundColor:
+                            // WidgetStateProperty.all<Color>(Colors.green),
+                            //foregroundColor:
+                            // WidgetStateProperty.all<Color>(Colors.black),
+                            ),
                       ),
                     ],
                   ),
@@ -134,7 +146,7 @@ class _FriendPageState extends State<ManageFriend> {
                             radius: 30,
                             backgroundImage: AssetImage(friend.imagePath),
                           ),
-                          SizedBox(width: 1),
+                          SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -160,13 +172,10 @@ class _FriendPageState extends State<ManageFriend> {
                                   color: Colors.white,
                                   fontSize: 16,
                                 ),
-                             
                               ),
                             ],
-                          ),  
-                         SizedBox(width: 30),
-
-                            IconButton(
+                          ),
+                          IconButton(
                             icon: Icon(Icons.remove_circle, color: Colors.red),
                             onPressed: () {
                               removeFriend(index);

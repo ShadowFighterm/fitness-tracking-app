@@ -50,27 +50,48 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  var res = await userProv.UpdateUserInfo_2(
+                  int running = int.parse(runningController.text.isEmpty
+                      ? '0'
+                      : runningController.text);
+                  int cycling = int.parse(cyclingController.text.isEmpty
+                      ? '0'
+                      : cyclingController.text);
+                  int swimming = int.parse(swimmingController.text.isEmpty
+                      ? '0'
+                      : swimmingController.text);
+                  int walking = int.parse(walkingController.text.isEmpty
+                      ? '0'
+                      : walkingController.text);
+                  int weightlifting = int.parse(
+                      weightliftingController.text.isEmpty
+                          ? '0'
+                          : weightliftingController.text);
+                  int yoga = int.parse(
+                      yogaController.text.isEmpty ? '0' : yogaController.text);
+                  int jumpingRope = int.parse(jumpingRopeController.text.isEmpty
+                      ? '0'
+                      : jumpingRopeController.text);
+                  int aerobics = int.parse(aerobicsController.text.isEmpty
+                      ? '0'
+                      : aerobicsController.text);
+                  int total = running +
+                      cycling +
+                      swimming +
+                      walking +
+                      weightlifting +
+                      yoga +
+                      jumpingRope +
+                      aerobics;
+                  var res = await workoutProgressProv.AddProgress(
                       userProv.email,
-                      userProv.name,
-                      userProv.weight,
-                      userProv.height,
-                      userProv.age,
-                      userProv.goal,
-                      int.parse(runningController.text.isEmpty? '0':runningController.text),
-                      int.parse(cyclingController.text.isEmpty? '0':cyclingController.text),
-                      int.parse(swimmingController.text.isEmpty? '0':swimmingController.text),
-                      int.parse(walkingController.text.isEmpty? '0':walkingController.text),
-                      int.parse(weightliftingController.text.isEmpty? '0':weightliftingController.text),
-                      int.parse(yogaController.text.isEmpty? '0':yogaController.text),
-                      int.parse(jumpingRopeController.text.isEmpty? '0':jumpingRopeController.text),
-                      int.parse(aerobicsController.text.isEmpty? '0':aerobicsController.text),
-                      );
-                  setState(() {});
-                  // You can add further logic here to save the changes permanently
-                  if (res == "success") {
-                    Navigator.pop(context);
-                  }
+                      " ",
+                      total * 100,
+                      walking * 80,
+                      total,
+                      total * 10);
+
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/NavigationBar');
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),

@@ -1,7 +1,6 @@
-import 'dart:ffi';
 
-import 'package:db_final_project_fitness_app/constants/Color.dart';
-import 'package:db_final_project_fitness_app/static.dart';
+
+import 'package:db_final_project_fitness_app/constants/Color.dart';import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
 class AccountInfoPage extends StatefulWidget {
@@ -25,8 +24,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   TextEditingController goalController = TextEditingController();
 
   @override
-  void UpdateUserInfo(String email, String name, double weight, int height,
-      int age, String goal) async {}
   void initState() {
     super.initState();
     // Set initial values to controllers
@@ -43,6 +40,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text('Account Information'),
+        foregroundColor: Colors.grey
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -125,15 +123,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async {
+                onPressed: () async 
+                {
                   // Save the changes
-                  var res = await userProv.UpdateUserInfo(
-                      userProv.email,
-                      nameController.text,
-                      double.parse(weightController.text),
-                      int.parse(heightController.text),
-                      int.parse(ageController.text),
-                      goalController.text);
+                  var res = await userProv.UpdateUserInfo(userProv.email, nameController.text, double.parse(weightController.text), int.parse(heightController.text), int.parse(ageController.text), goalController.text);
                   setState(() {
                     name = userProv.name;
                     weight = userProv.weight;
@@ -142,7 +135,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     goal = userProv.goal;
                   });
                   // You can add further logic here to save the changes permanently
-                  if (res == "success") {
+                  if(res == "success")
+                  {
                     Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pushNamed(context, '/NavigationBar');
@@ -151,8 +145,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),
                 ),
-                child:
-                    Text('Save Changes', style: TextStyle(color: Colors.black)),
+                child: Text('Save Changes', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),

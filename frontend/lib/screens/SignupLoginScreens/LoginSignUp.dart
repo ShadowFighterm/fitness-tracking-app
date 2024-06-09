@@ -19,21 +19,20 @@ class _SignUpState extends State<SignUp> {
   bool _isNotValidate = false;
 
   void registerUser() async {
-    if (_nameController.text.isNotEmpty &&
-        _emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
+    if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
       userProv.setName(_nameController.text);
       userProv.setEmail(_emailController.text);
       var res = await AuthProvider.registerUser(
-          userProv.name,
-          _emailController.text,
-          _passwordController.text,
-          userProv.age,
-          userProv.gender,
-          userProv.height,
-          userProv.weight,
-          userProv.goal,
-          userProv.activityLevel);
+        userProv.name,
+        _emailController.text,
+        _passwordController.text,
+        userProv.age,
+        userProv.gender,
+        userProv.height,
+        userProv.weight,
+        userProv.goal,
+        userProv.activityLevel,
+      );
       if (res == "success") {
         _pageController.animateToPage(
           0,
@@ -49,12 +48,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   void loginUser() async {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      var token = await AuthProvider.loginUser(
-          _emailController.text, _passwordController.text);
+    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      var token = await AuthProvider.loginUser(_emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
+        await workoutProgressProv.GetProgress(userProv.email, DateTime.now().toString().substring(0,10));
         Navigator.pop(context);
         Navigator.pushNamed(context, '/NavigationBar');
       } else {
@@ -86,9 +84,7 @@ class _SignUpState extends State<SignUp> {
             left: 0,
             right: 0,
             child: Image.asset(
-              isLoginSelected
-                  ? 'assets/StartupScreen/bg2.png'
-                  : 'assets/StartupScreen/bg.png',
+              isLoginSelected ? 'assets/StartupScreen/bg2.png' : 'assets/StartupScreen/bg.png',
               height: size.height * 0.65,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -112,15 +108,16 @@ class _SignUpState extends State<SignUp> {
                   style: TextButton.styleFrom(
                     foregroundColor: isLoginSelected ? mainColor : Colors.white,
                     textStyle: TextStyle(
-                        shadows: isLoginSelected
-                            ? const [
-                                Shadow(
-                                  blurRadius: 10.0,
-                                  color: Colors.black,
-                                  offset: Offset(5.0, 5.0),
-                                ),
-                              ]
-                            : null),
+                      shadows: isLoginSelected
+                          ? const [
+                              Shadow(
+                                blurRadius: 10.0,
+                                color: Colors.black,
+                                offset: Offset(5.0, 5.0),
+                              ),
+                            ]
+                          : null,
+                    ),
                   ),
                   child: Text(
                     "Login",
@@ -135,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                   onPressed: () {
                     _pageController.animateToPage(
                       1,
-                      duration: const Duration(milliseconds: 05),
+                      duration: const Duration(milliseconds: 5),
                       curve: Curves.easeInOut,
                     );
                   },
@@ -162,12 +159,11 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 const Expanded(child: SizedBox.shrink()),
-                //CircleAvatar
+                // CircleAvatar
                 isLoginSelected
                     ? const CircleAvatar(
                         radius: 25,
-                        backgroundImage:
-                            AssetImage('assets/Images/profile.jpg'),
+                        backgroundImage: AssetImage('assets/Images/profile.jpg'),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -178,9 +174,7 @@ class _SignUpState extends State<SignUp> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                isLoginSelected
-                    ? "Welcome back, \nUser".toUpperCase()
-                    : "Hello rookies".toUpperCase(),
+                isLoginSelected ? "Welcome back, \nUser".toUpperCase() : "Hello rookies".toUpperCase(),
                 style: TextStyle(
                   fontSize: size.width * 0.095,
                   fontWeight: FontWeight.bold,
@@ -205,14 +199,13 @@ class _SignUpState extends State<SignUp> {
                 },
                 children: [
                   // Login Page
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
                         TextField(
                           controller: _emailController,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -235,8 +228,8 @@ class _SignUpState extends State<SignUp> {
                         TextField(
                           controller: _passwordController,
                           obscureText: true,
+                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
                           cursorColor: Colors.grey,
-                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(
@@ -354,8 +347,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  // Sigtopn up Page
-                  //Name
+                  // Sign-up Page
+                  // Name
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -363,7 +356,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextField(
                           controller: _nameController,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Name",
                             hintStyle: TextStyle(
@@ -385,7 +378,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: size.height * 0.03),
                         TextField(
                           controller: _emailController,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -407,8 +400,8 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: size.height * 0.03),
                         TextField(
                           controller: _passwordController,
-                          style: const TextStyle(color: Colors.white),
                           obscureText: true,
+                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(

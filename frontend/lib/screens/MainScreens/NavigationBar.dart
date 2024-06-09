@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:db_final_project_fitness_app/constants/Color.dart'; 
+import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Profile.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/WorkoutProgress.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/CommunityPage.dart'; // Import the Community page
 
 class HomepageNavbar extends StatefulWidget {
   const HomepageNavbar({super.key});
@@ -19,13 +20,15 @@ class _HomepageNavbarState extends State<HomepageNavbar> {
     workoutProgress(),
     NotificationPage(),
     ProfilePage(),
+    CommunityPage(), // Add the Community page
   ];
 
-    void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,34 +39,36 @@ class _HomepageNavbarState extends State<HomepageNavbar> {
           data: Theme.of(context).copyWith(
             canvasColor: Colors.black,
           ),
-        child: BottomNavigationBar(
-          
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            
-            BottomNavigationBarItem(
-              icon: Icon(Icons.poll),
-              label: 'Progress',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_active_sharp),
-              label: 'Notifications',
-            ),
-            
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: mainColor,
-          unselectedItemColor: Colors.grey,
-          onTap: _onItemTapped,
+          child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.poll),
+                label: 'Progress',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notifications_active_sharp),
+                label: 'Notifications',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.group),
+                label: 'Community',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: mainColor,
+            unselectedItemColor: Colors.grey,
+            onTap: _onItemTapped,
+          ),
         ),
-      ),),
+      ),
     );
   }
 }
