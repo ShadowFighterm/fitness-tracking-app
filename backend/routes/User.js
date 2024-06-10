@@ -8,4 +8,5 @@ router.post('/addFriend', UserController.addFriend);
 router.post('/removeFriend', UserController.removeFriend);
 router.post('/getFriends', UserController.getUsersFriends);
 router.post('/getUsers', UserController.getUsersWithName);
+router.post('/getNotifications', UserController.getNotifications);
 module.exports = router;

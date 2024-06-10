@@ -1,9 +1,14 @@
 import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +76,11 @@ class ProfilePage extends StatelessWidget {
               _buildDivider(),
               IconRow(
                 text: 'Account',
-                onTap: () {
-                  Navigator.pushNamed(context, '/account');
+                onTap: () async {
+                  // Wait for the Account page to return a result
+                  await Navigator.pushNamed(context, '/account');
+                  // Refresh the state
+                  setState(() {});
                 },
               ),
               const SizedBox(height: 8),

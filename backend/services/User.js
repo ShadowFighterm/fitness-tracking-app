@@ -141,6 +141,26 @@ class UserServices
             throw err;
         }
     }
+
+    static async SendNotificationToFriend(email, friendMail)
+    {
+        try 
+        {
+            var user = await this.GetUserByMail(email);
+            var friend = await this.GetUserByMail(friendMail);
+            const notification = {
+                message: `${user.name} with ID ${email} has started following you.`,
+                timestamp: new Date().toISOString()
+            };
+            friend.notifications.push(notification);
+            return await friend.save();
+        } 
+        catch (err) 
+        {
+            console.log(err);
+            throw err;
+        }
+    }
 }
 
 

@@ -212,6 +212,7 @@ exports.register = async(req, res) =>
                             {
                                 const { email, friendMail } = req.body;
                                 var updatedUser = await UserServices.AddFriend(email, friendMail);
+                                await UserServices.SendNotificationToFriend(email,friendMail);
                                 var friends = updatedUser.friends;
                                 var friendsNames = [];
                                 var friendsCal = [];
@@ -283,4 +284,31 @@ exports.removeFriend = async(req, res) =>
             res.status(500).json({ message: "Internal server error" });
         }
     }
-                
+
+exports.getNotifications = async(req, res) => 
+{
+    try
+    {
+        const { email } = req.body;
+        const user = await UserServices.GetUserByMail(email);
+        if(user)
+        {
+            console.log('Got notifications');
+            res.status(200).json({
+                status: "success",
+                notifications: user.notifications, 
+            });
+        }
+        else 
+        {
+            res.status(400).json({
+                message: "Server error or user does not exists",
+            });
+        }
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}

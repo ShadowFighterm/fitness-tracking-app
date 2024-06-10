@@ -58,7 +58,12 @@ const UserSchema = new Schema
     friends:
     {
         type: Array,
-        required: false
+        required: false,
+    },
+    notifications:
+    {
+        type: Array,
+        required: false,
     }
 
 }, {timestamps: true});
