@@ -148,7 +148,8 @@ class ProfilePage extends StatelessWidget {
               _buildDivider(),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/startup');
                 },
                 child: const Text(
                   "Sign Out",

@@ -1,19 +1,7 @@
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
-
-class Friend {
-  final String name;
-  final int streak;
-  final int burnedCalories;
-  final String imagePath;
-
-  Friend({
-    required this.name,
-    required this.streak,
-    required this.burnedCalories,
-    required this.imagePath,
-  });
-}
 
 class ManageFriend extends StatefulWidget {
   @override
@@ -21,80 +9,15 @@ class ManageFriend extends StatefulWidget {
 }
 
 class _ManageFriendState extends State<ManageFriend> {
-  List<Friend> friends = [
-    Friend(
-        name: 'Friend 1',
-        streak: 5,
-        burnedCalories: 300,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 2',
-        streak: 10,
-        burnedCalories: 500,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 3',
-        streak: 3,
-        burnedCalories: 200,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 4',
-        streak: 7,
-        burnedCalories: 400,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 5',
-        streak: 15,
-        burnedCalories: 600,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 1',
-        streak: 5,
-        burnedCalories: 300,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 2',
-        streak: 10,
-        burnedCalories: 500,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 3',
-        streak: 3,
-        burnedCalories: 200,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 4',
-        streak: 7,
-        burnedCalories: 400,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 5',
-        streak: 15,
-        burnedCalories: 600,
-        imagePath: 'assets/profile.jpg'),
-  ];
+  List<FriendProvider> friends = userProv.friends;
 
   TextEditingController _controller = TextEditingController();
 
-  void removeFriend(int index) {
+  void removeFriend(int index)async
+  {
+    var res = await userProv.RemoveFriend(userProv.friends[index].email);
     setState(() {
-      friends.removeAt(index);
-    });
-  }
-
-  void addFriend(String name) {
-    setState(() {
-      friends.add(Friend(
-          name: name,
-          streak: 0,
-          burnedCalories: 0,
-          imagePath: 'assets/default_friend.jpg'));
-      friends.add(Friend(
-          name: name,
-          streak: 0,
-          burnedCalories: 0,
-          imagePath: 'assets/default_friend.jpg'));
-      _controller.clear(); // Clear the text field after adding friend
+      friends = userProv.friends;
     });
   }
 
@@ -141,80 +64,91 @@ class _ManageFriendState extends State<ManageFriend> {
                         ),
                       ),
                       SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_controller.text.isNotEmpty) {
-                            addFriend(_controller.text);
+                      IconButton(
+                        icon: Icon(Icons.search, color: mainColor),
+                        onPressed: ()async {
+                          if(_controller.text.isNotEmpty)
+                          {
+                            await userProv.GetUsersWithName(_controller.text);
+                            await Navigator.pushNamed(context, '/searchPage');
+                            setState(() {
+                              friends = userProv.friends;
+                            });
                           }
                         },
-                        child: Text('Add Friend'),
-                        // style: ButtonStyle(
-                        //   backgroundColor: WidgetStateProperty.all<Color>(mainColor),
-                        //   foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                        //),
                       ),
                     ],
                   ),
                 ),
-                Column(
-                  children: friends.asMap().entries.map((entry) {
-                    final int index = entry.key;
-                    final Friend friend = entry.value;
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFF2c2c2e), // Friend box color #2c2c2e
+                friends.isEmpty
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            "No friend found",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ),
+                      )
+                    : Column(
+                        children: friends.asMap().entries.map((entry) {
+                          final int index = entry.key;
+                          final FriendProvider friend = entry.value;
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xFF2c2c2e), // Friend box color #2c2c2e
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(width: 10),
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage: AssetImage('assets/Images/profile.jpg'),
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      friend.name,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      "ID: ${friend.email}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Burned Calories: ${friend.caloriesBurnt}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.remove_circle, color: Colors.red),
+                                  onPressed: () {
+                                    removeFriend(index);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(width: 10),
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage: AssetImage(friend.imagePath),
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                friend.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "Streak: ${friend.streak}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                "Burned Calories: ${friend.burnedCalories}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.remove_circle, color: Colors.red),
-                            onPressed: () {
-                              removeFriend(index);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
               ],
             ),
           ),
