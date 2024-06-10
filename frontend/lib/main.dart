@@ -58,10 +58,10 @@ class FitnessApp extends StatelessWidget {
         '/AddActivity': (context) => AddActivityPage(),
         '/workoutinput': (context) => const ExerciseInputPage(),
         '/searchPage': (context) => SearchPage(),
-        'todayworkoutplan': (context) => WorkoutDetailsPage(),
+        '/todayworkoutplan': (context) => WorkoutDetailsPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: HomepageNavbar(),
+      home: StartupScreen(),
     );
   }
 }
