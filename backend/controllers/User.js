@@ -65,7 +65,7 @@ exports.register = async(req, res) =>
                         age: user.age,
                         height: user.height,
                         weight: user.weight,
-                        activity: user.activity,
+                        activity: user.activity, 
                         goal: user.goal,
                         email: user.email,
                     }
