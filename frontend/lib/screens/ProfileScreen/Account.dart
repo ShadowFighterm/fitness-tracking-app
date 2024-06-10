@@ -38,9 +38,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: mainColor,
         title: const Text('Account Information'),
-        foregroundColor: Colors.grey
+        foregroundColor: Colors.black
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(

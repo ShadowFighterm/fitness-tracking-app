@@ -1,52 +1,23 @@
+import 'package:db_final_project_fitness_app/Provider/UserProv.dart';
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
-class Friend {
-  final String name;
-  final int streak;
-  final int burnedCalories;
-  final String imagePath;
-
-  Friend({
-    required this.name,
-    required this.streak,
-    required this.burnedCalories,
-    required this.imagePath,
-  });
+class LeaderBoardPage extends StatefulWidget {
+  @override
+  _LeaderBoardPageState createState() => _LeaderBoardPageState();
 }
 
-class LeaderBoardPage extends StatelessWidget {
-  final List<Friend> friends = [
-    Friend(
-        name: 'Friend 1',
-        streak: 5,
-        burnedCalories: 300,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 2',
-        streak: 10,
-        burnedCalories: 500,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 3',
-        streak: 3,
-        burnedCalories: 200,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 4',
-        streak: 7,
-        burnedCalories: 400,
-        imagePath: 'assets/profile.jpg'),
-    Friend(
-        name: 'Friend 5',
-        streak: 15,
-        burnedCalories: 600,
-        imagePath: 'assets/profile.jpg'),
-  ];
+class _LeaderBoardPageState extends State<LeaderBoardPage> {
+  List<FriendProvider> friends = List.from(userProv.friends);
+
+  @override
+  void initState() {
+    super.initState();
+    friends.sort((a, b) => b.caloriesBurnt.compareTo(a.caloriesBurnt));
+  }
 
   @override
   Widget build(BuildContext context) {
-    friends.sort((a, b) => b.burnedCalories.compareTo(a.burnedCalories));
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFF1c1c1e),
@@ -69,9 +40,12 @@ class LeaderBoardPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  children: friends.take(5).map((friend) {
-                    int index = friends.indexOf(friend);
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: friends.take(5).length,
+                  itemBuilder: (context, index) {
+                    var friend = friends[index];
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       padding: EdgeInsets.all(10),
@@ -93,7 +67,8 @@ class LeaderBoardPage extends StatelessWidget {
                           SizedBox(width: 10),
                           CircleAvatar(
                             radius: 30,
-                            backgroundImage: AssetImage(friend.imagePath),
+                            backgroundImage:
+                                AssetImage('assets/Images/profile.jpg'),
                           ),
                           SizedBox(width: 10),
                           Expanded(
@@ -108,24 +83,61 @@ class LeaderBoardPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  "Streak: ${friend.streak}",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  "Burned Calories: ${friend.burnedCalories}",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
+                                SizedBox(height: 5),
+                                // Row(
+                                //   children: [
+                                //     Text(
+                                //       "ID: ",
+                                //       style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontSize: 16,
+                                //       ),
+                                //     ),
+                                //     Expanded(
+                                //       child: Text(
+                                //         friend.email,
+                                //         style: TextStyle(
+                                //           color: Colors.white,
+                                //           fontSize: 16,
+                                //         ),
+                                //         overflow: TextOverflow.ellipsis,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Burned: ",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        "${friend.caloriesBurnt}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Text(
+                                      "cal",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-                          if (index == 0 || index == 1 || index == 2) ...[
+                          if (index == 0 || index == 1 || index == 2)
                             Icon(
                               Icons.emoji_events,
                               color: index == 0
@@ -133,13 +145,12 @@ class LeaderBoardPage extends StatelessWidget {
                                   : index == 1
                                       ? Colors.grey
                                       : Colors.brown,
-                              size: 30,
+                              size: 50,
                             ),
-                          ],
                         ],
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
               ],
             ),

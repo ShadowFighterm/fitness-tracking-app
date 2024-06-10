@@ -107,7 +107,7 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                       aerobics;
                   var res = await workoutProgressProv.AddProgress(
                       userProv.email,
-                      " ",
+                      DateTime.now().toString().substring(0, 10),
                       total * 100,
                       walking * 80,
                       total,

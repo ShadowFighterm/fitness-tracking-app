@@ -1,3 +1,4 @@
+import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 import 'package:db_final_project_fitness_app/constants/Color.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/Home.dart';
@@ -23,7 +24,11 @@ class _HomepageNavbarState extends State<HomepageNavbar> {
     CommunityPage(), // Add the Community page
   ];
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index)async {
+    if(_selectedIndex == 1)
+    {
+      await workoutProgressProv.GetProgress(userProv.email, DateTime.now().toString().substring(0,10));
+    }
     setState(() {
       _selectedIndex = index;
     });

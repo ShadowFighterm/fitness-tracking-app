@@ -19,7 +19,9 @@ class _SignUpState extends State<SignUp> {
   bool _isNotValidate = false;
 
   void registerUser() async {
-    if (_nameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+    if (_nameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       userProv.setName(_nameController.text);
       userProv.setEmail(_emailController.text);
       var res = await AuthProvider.registerUser(
@@ -48,11 +50,15 @@ class _SignUpState extends State<SignUp> {
   }
 
   void loginUser() async {
-    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-      var token = await AuthProvider.loginUser(_emailController.text, _passwordController.text);
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      var token = await AuthProvider.loginUser(
+          _emailController.text, _passwordController.text);
       if (token != null) {
         print('Login successful');
-        await workoutProgressProv.GetProgress(userProv.email, DateTime.now().toString().substring(0,10));
+        await workoutProgressProv.GetProgress(
+            userProv.email, DateTime.now().toString().substring(0, 10));
+        await userProv.GetFriends();
         Navigator.pop(context);
         Navigator.pushNamed(context, '/NavigationBar');
       } else {
@@ -84,7 +90,9 @@ class _SignUpState extends State<SignUp> {
             left: 0,
             right: 0,
             child: Image.asset(
-              isLoginSelected ? 'assets/StartupScreen/bg2.png' : 'assets/StartupScreen/bg.png',
+              isLoginSelected
+                  ? 'assets/StartupScreen/bg2.png'
+                  : 'assets/StartupScreen/bg.png',
               height: size.height * 0.65,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -163,7 +171,8 @@ class _SignUpState extends State<SignUp> {
                 isLoginSelected
                     ? const CircleAvatar(
                         radius: 25,
-                        backgroundImage: AssetImage('assets/Images/profile.jpg'),
+                        backgroundImage:
+                            AssetImage('assets/Images/profile.jpg'),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -174,7 +183,9 @@ class _SignUpState extends State<SignUp> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                isLoginSelected ? "Welcome back, \nUser".toUpperCase() : "Hello rookies".toUpperCase(),
+                isLoginSelected
+                    ? "Welcome back, \nUser".toUpperCase()
+                    : "Hello rookies".toUpperCase(),
                 style: TextStyle(
                   fontSize: size.width * 0.095,
                   fontWeight: FontWeight.bold,
@@ -205,7 +216,9 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextField(
                           controller: _emailController,
-                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
+                          style: TextStyle(
+                              color:
+                                  Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -228,7 +241,9 @@ class _SignUpState extends State<SignUp> {
                         TextField(
                           controller: _passwordController,
                           obscureText: true,
-                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
+                          style: TextStyle(
+                              color:
+                                  Colors.grey), // Set typed text color to grey
                           cursorColor: Colors.grey,
                           decoration: InputDecoration(
                             hintText: "Password",
@@ -356,7 +371,9 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         TextField(
                           controller: _nameController,
-                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
+                          style: TextStyle(
+                              color:
+                                  Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Name",
                             hintStyle: TextStyle(
@@ -378,7 +395,9 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: size.height * 0.03),
                         TextField(
                           controller: _emailController,
-                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
+                          style: TextStyle(
+                              color:
+                                  Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -401,7 +420,9 @@ class _SignUpState extends State<SignUp> {
                         TextField(
                           controller: _passwordController,
                           obscureText: true,
-                          style: TextStyle(color: Colors.grey), // Set typed text color to grey
+                          style: TextStyle(
+                              color:
+                                  Colors.grey), // Set typed text color to grey
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(
@@ -464,7 +485,7 @@ class _SignUpState extends State<SignUp> {
                             const Expanded(child: SizedBox.shrink()),
                             Container(
                               height: size.height * 0.06,
-                              width: size.width * 0.3,
+                              width: size.width * 0.4,
                               decoration: BoxDecoration(
                                 color: mainColor,
                                 borderRadius: BorderRadius.circular(25),

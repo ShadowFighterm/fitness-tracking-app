@@ -91,5 +91,57 @@ class UserServices
             throw err;
         }
     }
+
+    static async GetUsersByName(name)
+    {
+        try
+        {
+            return await UserMod.find({ name: { $regex: new RegExp(name, "i") } });
+        }
+        catch(err)
+        {
+            console.log(err);
+            throw err;
+        }
+    }
+
+    static async AddFriend(email, friendMail)
+    {
+        try 
+        {
+            var user = await this.GetUserByMail(email);
+            user.friends.push(friendMail);
+            return await user.save();
+
+        } 
+        catch (err) 
+        {
+            console.log(err);
+            throw err;
+        }
+    }
+
+    static async RemoveFriend(email, friendMail)
+    {
+        try 
+        {
+            var user = await this.GetUserByMail(email);
+            var friends = user.friends;
+            var index = friends.indexOf(friendMail);
+            for(var i = index; i + 1 < friends.length; i++)
+            {
+                user.friends[i] = user.friends[i + 1];
+            }
+            user.friends.pop();
+            return await user.save();
+        } 
+        catch (err) 
+        {
+            console.log(err);
+            throw err;
+        }
+    }
 }
+
+
 module.exports = UserServices;

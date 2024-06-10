@@ -26,9 +26,19 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor:
-            Colors.black, // Ensure the background color matches the design
-        body: _pages[_selectedIndex],
+        backgroundColor: Colors.black,
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Expanded(
+                  child: _pages[_selectedIndex],
+                ),
+              ],
+            ),
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

@@ -1,4 +1,5 @@
 const UserServices = require('../services/User');
+const WorkoutProgressServices = require('../services/WorkoutProgress');
 const jwt = require('jsonwebtoken');
 
 exports.register = async(req, res) =>
@@ -77,7 +78,7 @@ exports.register = async(req, res) =>
                 res.status(500).json({message: "Internal server error"});
             }
 
-        }
+        };
         exports.updateUserInfo = async (req, res) =>
             {
                 try
@@ -103,4 +104,183 @@ exports.register = async(req, res) =>
                     console.log(err);
                     res.status(500).json({ message: "Internal server error" });
                 }
+            };
+
+            exports.getUsersWithName = async (req, res) =>
+                {
+                    try
+                    {
+                        const { email, name } = req.body;
+                        if (!name)
+                        {
+                            console.log('What?');
+                            return res.status(400).json({ message: "Name is required" });
+                        }
+                        const currUser = await UserServices.GetUserByMail(email);
+                        const users = await UserServices.GetUsersByName(name);
+                        var userfriends = currUser.friends;
+                        if (users.length == 0)
+                        {
+                            return res.status(600).json({ message: "No users found with the given name" });
+                        }
+                        var usersMail = [];
+                        var usersName = [];
+                        for(var i = 0; i < users.length; i++)
+                        {
+                            var found = false;
+                            for(var j = 0 ; j < userfriends.length; j++)
+                            {
+                                if(users[i].email == userfriends[j] || users[i].email == email)
+                                {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if(!found)
+                            {
+                                usersMail.push(users[i].email);
+                                usersName.push(users[i].name);
+                            }
+                        }
+                        res.status(200).json({
+                            status: "success",
+                            message: "Users found",
+                            usersMail: usersMail,
+                            usersName: usersName,
+                        });
+                    }
+                    catch(err)
+                    {
+                        console.log(err);
+                        res.status(500).json({ message: "Internal server error" });
+                    }
+                };
+
+                exports.getUsersFriends = async (req, res) =>
+                    {
+                        try
+                        {
+                            const { email } = req.body;
+                            if (!email)
+                            {
+                                console.log('What?');
+                                return res.status(400).json({ message: "Email is required" });
+                            }
+                    
+                            const user = await UserServices.GetUserByMail(email);
+                            var friends = user.friends;
+                            if (friends.length == 0)
+                            {
+                                return res.status(600).json({ message: "No friends found" });
+                            }
+                            var friendsCal = [];
+                            var friendsNames = [];
+                            var currentDate = new Date();
+                            var CDStr = currentDate.toISOString().split('T')[0];
+                            console.log(CDStr);
+                            for(var i = 0; i < friends.length; i++)
+                            {
+                                var friend = await UserServices.GetUserByMail(friends[i]);
+                                friendsNames.push(friend.name);
+                                var friendRecord = await WorkoutProgressServices.GetProgressByEmail(friends[i]);
+                                var index = -1;
+                                if(friendRecord)
+                                {
+                                    index = friendRecord.date.indexOf(CDStr);
+                                }
+                                var friendCal =  ((index == -1)?0:friendRecord.caloriesBurnt[index]);
+                                friendsCal.push(friendCal);
+                            }
+                            res.status(200).json({
+                                status: "success",
+                                message: "Users found",
+                                friendsNames: friendsNames,
+                                friendsMails: friends,
+                                friendsCal: friendsCal
+                            });
+                        }
+                        catch(err)
+                        {
+                            console.log(err);
+                            res.status(500).json({ message: "Internal server error" });
+                        }
+                    };
+
+                    exports.addFriend = async (req, res) => 
+                        {
+                            try
+                            {
+                                const { email, friendMail } = req.body;
+                                var updatedUser = await UserServices.AddFriend(email, friendMail);
+                                var friends = updatedUser.friends;
+                                var friendsNames = [];
+                                var friendsCal = [];
+                                var currentDate = new Date();
+                                var CDStr = currentDate.toISOString().split('T')[0];
+                                console.log(CDStr);
+                                for(var i = 0 ; i < friends.length; i++)
+                                {
+                                    var friend = await UserServices.GetUserByMail(friends[i]);
+                                    friendsNames.push(friend.name);
+                                    var friendRecord = await WorkoutProgressServices.GetProgressByEmail(friends[i]);
+                                    var index = -1;
+                                    if(friendRecord)
+                                    {
+                                        index = friendRecord.date.indexOf(CDStr);
+                                    }
+                                    var friendCal =  ((index == -1)?0:friendRecord.caloriesBurnt[index]);
+                                    friendsCal.push(friendCal);
+                                }
+                                res.status(200).json({
+                                    status: "success",
+                                    friendsNames: friendsNames,
+                                    friendsMails: friends,
+                                    friendsCal: friendsCal
+                                });
+                            }
+                            catch(err)
+                            {
+                                console.log(err);
+                                res.status(500).json({ message: "Internal server error" });
+                            }
+                        };
+exports.removeFriend = async(req, res) =>                        
+    {
+        try
+        {
+            const { email, friendMail } = req.body;
+            var updatedUser = await UserServices.RemoveFriend(email, friendMail);
+            var friends = updatedUser.friends;
+            var friendsNames = [];
+            var friendsCal = [];
+            var currentDate = new Date();
+            var CDStr = currentDate.toISOString().split('T')[0];
+            console.log(CDStr);
+            for(var i = 0 ; i < friends.length; i++)
+            {
+                var friend = await UserServices.GetUserByMail(friends[i]);
+                friendsNames.push(friend.name);
+                var friendRecord = await WorkoutProgressServices.GetProgressByEmail(friends[i]);
+                var index = -1;
+                if(friendRecord)
+                {
+                    index = friendRecord.date.indexOf(CDStr);
+                }
+                var friendCal =  ((index == -1)?0:friendRecord.caloriesBurnt[index]);
+                friendsCal.push(friendCal);
             }
+            res.status(200).json({
+                status: "success",
+                friendsNames: friendsNames,
+                friendsMails: friends,
+                friendsCal: friendsCal
+            });
+
+        }
+        catch(err)
+        {
+            console.log(err);
+            res.status(500).json({ message: "Internal server error" });
+        }
+    }
+                

@@ -33,9 +33,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: mainColor,
         title: Text('Add Activity'),
-        foregroundColor: Colors.grey,
+        foregroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
