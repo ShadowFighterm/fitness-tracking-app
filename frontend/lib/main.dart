@@ -23,7 +23,6 @@ import 'package:db_final_project_fitness_app/screens/MainScreens/leaderboard.dar
 import 'package:db_final_project_fitness_app/screens/MainScreens/managefriends.dart';
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(const FitnessApp());
 }
