@@ -13,6 +13,7 @@ import 'package:db_final_project_fitness_app/screens/ProfileScreen/Settings.dart
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/exercises.dart';
 import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/ForgotPassword.dart';
 import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/LoginSignUp.dart';
+import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/login_only.dart';
 import 'package:db_final_project_fitness_app/screens/StartupScreen/Startup.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Activity.dart';
 import 'package:db_final_project_fitness_app/screens/UserInfoScreens/Age.dart';
@@ -61,7 +62,7 @@ class FitnessApp extends StatelessWidget {
         '/todayworkoutplan': (context) => WorkoutDetailsPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: StartupScreen(),
+      home: LoginPage(),
     );
   }
 }

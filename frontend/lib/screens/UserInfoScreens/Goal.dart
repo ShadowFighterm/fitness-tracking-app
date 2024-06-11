@@ -1,5 +1,4 @@
 import 'package:db_final_project_fitness_app/constants/Color.dart';
-import 'package:db_final_project_fitness_app/screens/SignupLoginScreens/LoginSignUp.dart';
 import 'package:db_final_project_fitness_app/static.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +98,7 @@ class _GoalScreenState extends State<GoalScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/activity');
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -130,8 +129,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/login');
                   },
                   child: Container(
                     decoration: BoxDecoration(
