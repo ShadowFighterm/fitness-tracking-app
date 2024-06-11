@@ -4,6 +4,7 @@ import 'package:db_final_project_fitness_app/screens/MainScreens/Notification.da
 import 'package:db_final_project_fitness_app/screens/MainScreens/SearchPage.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/WorkoutProgress.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/AddActivity.dart';
+import 'package:db_final_project_fitness_app/screens/MainScreens/goal_input.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/today_workout.dart';
 import 'package:db_final_project_fitness_app/screens/MainScreens/workoutCategories.dart';
 import 'package:db_final_project_fitness_app/screens/ProfileScreen/Account.dart';
