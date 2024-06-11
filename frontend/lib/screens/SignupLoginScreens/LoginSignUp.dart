@@ -10,6 +10,8 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
+
+
 class _SignUpState extends State<SignUp> {
   late PageController _pageController;
   bool isLoginSelected = true;

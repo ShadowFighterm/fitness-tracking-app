@@ -117,6 +117,7 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                   Navigator.pushNamed(context, '/NavigationBar');
                   await workoutProgressProv.GetProgress(userProv.email,
                       DateTime.now().toString().substring(0, 10));
+                  await userProv.GetFriends();
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),
