@@ -125,21 +125,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ElevatedButton(
                 onPressed: () async 
                 {
-                  // Save the changes
-                  var res = await userProv.UpdateUserInfo(userProv.email, nameController.text, double.parse(weightController.text), int.parse(heightController.text), int.parse(ageController.text), goalController.text);
-                  setState(() {
-                    name = userProv.name;
-                    weight = userProv.weight;
-                    height = userProv.height;
-                    age = userProv.age;
-                    goal = userProv.goal;
-                  });
-                  // You can add further logic here to save the changes permanently
-                  if(res == "success")
+                  if(nameController.text.isNotEmpty && weightController.text.isNotEmpty && heightController.text.isNotEmpty && ageController.text.isNotEmpty && goalController.text.isNotEmpty)
                   {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/NavigationBar');
+                    var res = await userProv.UpdateUserInfo(userProv.email, nameController.text, double.parse(weightController.text), int.parse(heightController.text), int.parse(ageController.text), goalController.text);
+                    setState(() {
+                      name = userProv.name;
+                      weight = userProv.weight;
+                      height = userProv.height;
+                      age = userProv.age;
+                      goal = userProv.goal;
+                    });
+                    // You can add further logic here to save the changes permanently
+                    if(res == "success")
+                    {
+                      Navigator.pop(context);
+                    }
                   } // Go back to the previous screen
                 },
                 style: ButtonStyle(

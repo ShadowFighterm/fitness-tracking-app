@@ -125,12 +125,13 @@ class _ManageFriendState extends State<ManageFriend> {
                                         ),
                                       ),
                                       SizedBox(height: 5),
-                                      // Text(
-                                      //   "ID: ${friend.email}",
-                                      //   style: TextStyle(
-                                      //     color: Colors.white,
-                                      //     fontSize: 16,
-                                      //   ),
+                                      Text(
+                                        "ID: ${friend.email}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                       Text(
                                         "Burned Cal: ${friend.caloriesBurnt}",
                                         style: TextStyle(

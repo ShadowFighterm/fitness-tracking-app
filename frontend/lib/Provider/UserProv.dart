@@ -61,6 +61,7 @@ class UserProvider extends ChangeNotifier {
   String _email = '';
   List<FriendProvider> _friends = [];
   List<SearchedUserProv> _searchList = [];
+  List<dynamic> _notifications = [];
 
   String get name => _name;
   String get gender => _gender;
@@ -72,6 +73,7 @@ class UserProvider extends ChangeNotifier {
   String get email => _email;
   List<FriendProvider> get friends => _friends;
   List<SearchedUserProv> get searchList => _searchList;
+  List<dynamic> get notifications => _notifications;
 
   void setName(String name) {
     _name = name;
@@ -111,6 +113,10 @@ class UserProvider extends ChangeNotifier {
 
   void setSearchList(List<SearchedUserProv> searchList) {
     _searchList = searchList;
+  }
+
+  void setNotifications(List<dynamic> notifications) {
+    _notifications = notifications;
   }
 
   void LoadUserInfo(var jsonReponse) {
@@ -274,6 +280,33 @@ class UserProvider extends ChangeNotifier {
       }
     } catch (e) {
       print('Error remove: $e');
+      return null;
+    }
+  }
+
+  void LoadNotifications(var jsonReponse) {
+    setNotifications(jsonReponse['notifications']);
+  }
+
+  Future<String?> GetNotifications() async {
+    try {
+      var reqBody = {"email": _email};
+      var response = await http.post(
+        Uri.parse(getNotifications),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody),
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        LoadNotifications(jsonResponse);
+        print('Got notifications successfully');
+        return "success";
+      } else {
+        print('Server error');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching: $e');
       return null;
     }
   }
